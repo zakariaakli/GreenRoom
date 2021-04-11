@@ -35,7 +35,7 @@ const HomeTabs = () => {
   return (
     <Tab.Navigator>
       <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Profile" component={ProfileScreen} />
+      <Tab.Screen name="Details Artist" component={DetailsArtist} />
     </Tab.Navigator>
   );
 };
