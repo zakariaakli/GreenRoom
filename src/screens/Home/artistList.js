@@ -1,5 +1,6 @@
 const users = [
     {
+        id:1,
         title: 'Florent pagny',
         name: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ',
         avatar: [require('../../../images/2542330149.jpg'), require('../../../images/Angelina-Jolie-Essay-Elle-September-Issue-2019.jpg')],
@@ -7,12 +8,14 @@ const users = [
      }
     ,
     {
+        id:2,
         title: 'Shakira',
         name: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
         avatar: [require('../../../images/Angelina-Jolie-Essay-Elle-September-Issue-2019.jpg'), require('../../../images/metallica.jpg')],
         rating: 2.5
     },
     {
+        id:3,
         title: 'Metallica',
         name: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
         avatar: [require('../../../images/metallica.jpg'), require('../../../images/Angelina-Jolie-Essay-Elle-September-Issue-2019.jpg')],
@@ -22,6 +25,7 @@ const users = [
 import React from 'react';
 import { View, Text, Image, TouchableWithoutFeedback } from 'react-native'
 import { RootComponent } from '../../components/homeCard.js';
+import { useRoute } from '@react-navigation/native';
 
 let styles = {
     text: {
@@ -61,7 +65,9 @@ export class ARList extends React.Component {
 
                 return (
 
-                    <TouchableWithoutFeedback  key={i} onPress={() => navigation.navigate('Details Artist')}>
+                    <TouchableWithoutFeedback  key={i} onPress={() => navigation.navigate('Details', {
+                            id: u.id
+                    })}>
                         <View >
                             <RootComponent arImage={u.avatar} arName={u.title} arResume={u.name} arRating={u.rating} />
                         </View>

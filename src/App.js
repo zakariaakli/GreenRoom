@@ -63,12 +63,12 @@ const App = () => {
 
   return (
     <NavigationContainer>
-      {/*  initialRouteName="Home" */}
       <RootStack.Navigator >
         {isAuthenticated ? (
+          <>
           <RootStack.Screen
           name="Home"
-          component={HomeDrawer}
+          component={HomeScreen}
           options={({ route, navigation }) => ({
             headerTitle: getFocusedRouteNameFromRoute(route),
             headerLeft: () => (
@@ -84,6 +84,12 @@ const App = () => {
             ),
           })}
         />
+        <RootStack.Screen
+         name="Details"
+         component={DetailsArtist}
+        />
+        </>
+
         ) : (
             <>
               <RootStack.Screen
@@ -112,8 +118,11 @@ const App = () => {
               component={DetailsArtist}
             />
             </>
-          )}
+
+          ) }
+
       </RootStack.Navigator>
+
     </NavigationContainer>
   );
 };

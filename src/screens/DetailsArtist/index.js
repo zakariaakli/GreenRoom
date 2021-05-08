@@ -13,6 +13,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 class ProfileScreen extends React.Component {
 
     render() {
+      console.log(this.props);
       return (
         <View style={styles.container}>
         <ScrollView>
@@ -23,7 +24,7 @@ class ProfileScreen extends React.Component {
 
             <View style={styles.navSectionStyle}>
               <Text style={styles.navItemStyle} onPress={() => this.props.navigation.navigate("FirstPage")}><Icon name = 'ios-person' size={15}>   </Icon>
-               Profile
+               {this.props.route.params.id}
               </Text>
               <Text style={styles.navItemStyle}><Icon name = 'ios-calendar' size={15}>   </Icon>
               Réservations
