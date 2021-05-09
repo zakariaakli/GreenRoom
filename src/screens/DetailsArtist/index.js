@@ -1,129 +1,105 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
-    View,
-    Text,
-    StyleSheet,
-    ScrollView,
-    Alert,
-
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity, FlatList
 } from 'react-native';
+import { Card } from "react-native-elements";
+import {Flatlist} from "../../components/FlatList"
 
-import Icon from 'react-native-vector-icons/Ionicons';
 
-class ProfileScreen extends React.Component {
+export default class Profile extends Component {
+ 
 
-    render() {
-      return (
-        <View style={styles.container}>
-        <ScrollView>
-          <View >
-            <Text style={styles.sectionHeadingStyle}>
-
-            </Text>
-
-            <View style={styles.navSectionStyle}>
-              <Text style={styles.navItemStyle} onPress={() => this.props.navigation.navigate("FirstPage")}><Icon name = 'ios-person' size={15}>   </Icon>
-               Profile
-              </Text>
-              <Text style={styles.navItemStyle}><Icon name = 'ios-calendar' size={15}>   </Icon>
-              Réservations
-              </Text>
-              <Text style={styles.navItemStyle}><Icon name = 'ios-text' size={15}>   </Icon>
-              Messages
-              </Text>
+  render() {
+    return (
+      <View style={styles.container}>
+          <View style={styles.header}></View>
+          <Image style={styles.avatar} source={{uri: 'https://bootdey.com/img/Content/avatar/avatar6.png'}}/>
+          <View style={styles.body}>
+            <View style={styles.bodyContent}>
+              <Text style={styles.name}>Mo Akli</Text>
+              <Text style={styles.info}>Singer</Text>
+              <Text style={styles.description}>Lorem ipsum dolor sit amet, saepe sapientem eu nam. Qui ne assum electram expetendis, omittam deseruisse consequuntur ius an,</Text>
+              
+              
             </View>
-          </View>
-          <View>
-            <Text style={styles.sectionHeadingStyle}>
-
-            </Text>
-            <View style={styles.navSectionStyle}>
-              <Text style={styles.navItemStyle}><Icon name = 'ios-microphone' size={15}>   </Icon>
-                Passer en mode artiste
-              </Text>
-            </View>
-          </View>
-          <View>
-            <Text style={styles.sectionHeadingStyle}>
-
-            </Text>
-            <View style={styles.navSectionStyle}>
-              <Text style={styles.navItemStyle}><Icon name = 'ios-help-buoy' size={15}>   </Icon>
-              Aide
-              </Text>
-              <Text style={styles.navItemStyle}><Icon name = 'ios-log-out' size={15}>   </Icon>
-              Se déconnecter
-              </Text>
-            </View>
-          </View>
-        </ScrollView>
         </View>
-
-      );
-    }
+        <View>
+        <FlatList
+          horizontal={true}
+          data={this.props.data}
+          extraData={this.state}
+          keyExtractor={this._keyExtractor}
+          renderItem={this._renderItem}
+      />
+      
+            </View>
+      </View>
+    );
   }
-  const styles = StyleSheet.create({
-    scrollView: {
-      backgroundColor: '#f0f8ff',
-    },
-    engine: {
-      position: 'absolute',
-      right: 0,
-    },
-    body: {
-      backgroundColor: '#00ffff'
+}
 
-    },
-    sectionContainer: {
-      marginTop: 32,
-      paddingHorizontal: 24,
-    },
-    sectionTitle: {
-      fontSize: 24,
-      fontWeight: '600',
-      color:  '#ff1493',
-    },
-    sectionDescription: {
-      marginTop: 8,
-      fontSize: 18,
-      fontWeight: '400',
-      color: '#ff1493',
-    },
-    highlight: {
-      fontWeight: '700',
-    },
-    footer: {
-      color:  '#ff1493',
-      fontSize: 12,
-      fontWeight: '600',
-      padding: 4,
-      paddingRight: 12,
-      textAlign: 'right',
-    },
-    TextLabel: {
-      fontSize: 35,
-      color: 'darkorchid',
-      fontWeight: 'bold',
-      textAlign: 'justify',
-      left: 15
+const styles = StyleSheet.create({
+ 
+  header:{
+    backgroundColor: "black",
+    height:200,
+  },
+  avatar: {
+    width: 130,
+    height: 130,
+    borderRadius: 63,
+    borderWidth: 4,
+    borderColor: "black",
+    marginBottom:10,
+    alignSelf:'center',
+    position: 'absolute',
+    marginTop:130
+  },
+  name:{
+    fontSize:22,
+    color:"#FFFFFF",
+    fontWeight:'600',
+  },
+  body:{
+    marginTop:40,
+    
+  },
+  bodyContent: {
+    flex: 1,
+    alignItems: 'center',
+    padding:30,
+  },
+  name:{
+    fontSize:28,
+    color: "#696969",
+    fontWeight: "600"
+  },
+  info:{
+    fontSize:16,
+    color: "green",
+    marginTop:10
+  },
+  description:{
+    fontSize:16,
+    color: "#696969",
+    marginTop:10,
+    textAlign: 'center'
+  },
+  buttonContainer: {
+    marginTop:10,
+    height:45,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom:20,
+    width:250,
+    borderRadius:30,
+    backgroundColor: "#00BFFF",
+  },
+});
 
-    },
-    navItemStyle: {
-        padding: 10
-      },
-      navSectionStyle: {
-        backgroundColor: 'lightgrey'
-      },
-    sectionHeadingStyle: {
-        paddingVertical: 10,
-        paddingHorizontal: 5
-      },
-    footerContainer: {
-        padding: 20,
-        backgroundColor: 'lightgrey'
-      }
-
-  });
-
-
-export default ProfileScreen;
+                 
