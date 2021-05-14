@@ -1,23 +1,43 @@
-import React from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
+import React, { useEffect } from 'react';
+import { ActivityIndicator, StyleSheet, View } from 'react-native';
+import * as firebase from 'firebase';
+import apiKeys from '../../../config/keys';
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    height: '100%',
+    width: '100%',
+    backgroundColor: '#3FC5AB',
     alignItems: 'center',
     justifyContent: 'center',
   },
 });
 
+if (!firebase.apps.length) {
+  console.log('Connected with Firebase')
+  firebase.initializeApp(apiKeys.firebaseConfig);
+}
+
 const LandingScreen = ({ navigation }) => {
+
+  useEffect(
+    () => {
+     firebase.auth().onAuthStateChanged((user) => {
+       if (user) {
+         navigation.replace('Home');
+       } else {
+         navigation.replace('Sign Up');
+       }
+     });
+   }
+  );
+
+
+
   return (
     <View style={styles.container}>
-      <Text>Public Landing Screen</Text>
-      <Button
-        title="Go to Sign In"
-        onPress={() => navigation.navigate('Sign In', navigation)}
-      />
-    </View>
+    <ActivityIndicator size='large' />
+  </View>
   );
 };
 

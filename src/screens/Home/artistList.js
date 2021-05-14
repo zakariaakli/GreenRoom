@@ -22,10 +22,11 @@ const users = [
         rating: 4
     }
 ]
-import React from 'react';
+import React, { useEffect, useState } from 'react'
 import { View, Text, Image, TouchableWithoutFeedback } from 'react-native'
-import { RootComponent } from '../../components/homeCard.js';
+import RootComponent  from '../../components/homeCard';
 import { useRoute } from '@react-navigation/native';
+import * as firebase from 'firebase';
 
 let styles = {
     text: {
@@ -54,10 +55,8 @@ let styles = {
     }
 }
 
-export class ARList extends React.Component {
-    render() {
-        const { navigation } = this.props;
-        console.log(this.props);
+function ARList({navigation}) {
+
         return (
             // implemented without image with header
 
@@ -75,6 +74,6 @@ export class ARList extends React.Component {
                 );
             })
         )
-}}
+}
 
 export default ARList;
