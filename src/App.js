@@ -12,6 +12,9 @@ import PasswordForgetScreen from './screens/PasswordForget';
 import HomeScreen from './screens/Home';
 import ProfileScreen from './screens/Profile';
 import DetailsArtist from './screens/DetailsArtist';
+import AddArtistInfos from './screens/addArtist';
+import * as firebase from 'firebase';
+import apiKeys from '../config/keys';
 
 // ZAK Drawer Navigation -- a new navigation technique from React Navigation -- as nested navigation within the previously implemented Stack Navigation.
 const Drawer = createDrawerNavigator();
@@ -43,6 +46,11 @@ const HomeTabs = () => {
 const RootStack = createStackNavigator();
 
 const App = () => {
+  if (!firebase.apps.length) {
+    console.log('Connected with Firebase')
+    firebase.initializeApp(apiKeys.firebaseConfig);
+  }
+
   const [isAuthenticated, setIsAuthenticated] = React.useState(false);
 
   const handleSignIn = () => {
@@ -64,9 +72,15 @@ const App = () => {
   return (
     <NavigationContainer>
       <RootStack.Navigator >
-        {isAuthenticated ? (
-          <>
-          <RootStack.Screen
+
+        <RootStack.Screen
+          name="Landing"
+          component={LandingScreen}
+          options={{
+            animationTypeForReplace: 'pop',
+          }}
+        />
+        <RootStack.Screen
           name="Home"
           component={HomeScreen}
           options={({ route, navigation }) => ({
@@ -82,45 +96,36 @@ const App = () => {
             headerRight: () => (
               <Button onPress={handleSignOut} title="Sign Out" />
             ),
+            headerShown : false,
           })}
         />
         <RootStack.Screen
-         name="Details"
-         component={DetailsArtist}
+          name="Details"
+          component={DetailsArtist}
+          options={ () => ({
+            headerShown : false,
+          })
+          }
         />
-        </>
+        <RootStack.Screen name="Sign In">
+          {(props) => (
+            <SignInScreen {...props} onSignIn={handleSignIn} />
+          )}
 
-        ) : (
-            <>
-              <RootStack.Screen
-                name="Landing"
-                component={LandingScreen}
-                options={{
-                  animationTypeForReplace: 'pop',
-                }}
-              />
-              <RootStack.Screen name="Sign In">
-                {(props) => (
-                  <SignInScreen {...props} onSignIn={handleSignIn} />
-                )}
-              </RootStack.Screen>
-              <RootStack.Screen name="Sign Up">
-              {(props) => (
-                <SignUpScreen {...props} onSignUp={handleSignUp} />
-              )}
-            </RootStack.Screen>
-            <RootStack.Screen
-              name="Password Forget"
-              component={PasswordForgetScreen}
-            />
-            <RootStack.Screen
-              name="Details Artist"
-              component={DetailsArtist}
-            />
-            </>
-
-          ) }
-
+        </RootStack.Screen>
+        <RootStack.Screen name="Sign Up">
+          {(props) => (
+            <SignUpScreen {...props} onSignUp={handleSignUp} />
+          )}
+        </RootStack.Screen>
+        <RootStack.Screen
+          name="Password Forget"
+          component={PasswordForgetScreen}
+        />
+      <RootStack.Screen
+          name="Ajouter Info"
+          component={AddArtistInfos}
+        />
       </RootStack.Navigator>
 
     </NavigationContainer>

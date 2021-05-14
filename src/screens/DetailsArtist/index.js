@@ -9,11 +9,23 @@ import {
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { loggingOut } from '../../../API/firebaseMethods';
 
 class ProfileScreen extends React.Component {
 
     render() {
-      console.log(this.props);
+      var navigation = this.props.navigation;
+
+      const handlePress = () => {
+        loggingOut();
+        navigation.reset({
+          index: 4,
+          routes: [{ name: 'Sign Up' }],
+        });
+        navigation.navigate('Sign Up');
+      };
+
       return (
         <View style={styles.container}>
         <ScrollView>
@@ -52,9 +64,9 @@ class ProfileScreen extends React.Component {
               <Text style={styles.navItemStyle}><Icon name = 'ios-help-buoy' size={15}>   </Icon>
               Aide
               </Text>
-              <Text style={styles.navItemStyle}><Icon name = 'ios-log-out' size={15}>   </Icon>
-              Se déconnecter
-              </Text>
+              <TouchableOpacity  onPress={handlePress}>
+           <Text>Se deconnecter</Text>
+          </TouchableOpacity>
             </View>
           </View>
         </ScrollView>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     SafeAreaView,
     StyleSheet,
@@ -7,7 +7,10 @@ import {
     Text,
     StatusBar,
 } from 'react-native';
-import { ARList } from './artistList.js';
+import  ARList  from './artistList';
+import * as firebase from 'firebase';
+import {loggingOut} from '../../../API/firebaseMethods';
+import apiKeys from '../../../config/keys';
 
 const styles = StyleSheet.create({
     scrollView: {
@@ -57,9 +60,28 @@ const styles = StyleSheet.create({
     }
 });
 
-export class Home extends React.Component {
-  render(){
-    console.log(this.props);
+function Home (navigation) {
+  let currentUserUID = firebase.auth().currentUser ? firebase.auth().currentUser.uid : null;
+  const [firstName, setFirstName] = useState('');
+
+  useEffect(() => {
+    async function getUserInfo(){
+      let doc = await firebase
+      .firestore()
+      .collection('users')
+      .doc(currentUserUID)
+      .get();
+
+      if (!doc.exists){
+        Alert.alert('No user data found!')
+      } else {
+        let dataObj = doc.data();
+        setFirstName(dataObj.firstName)
+      }
+    }
+    getUserInfo();
+  })
+
     return (
         <SafeAreaView>
 
@@ -75,8 +97,8 @@ export class Home extends React.Component {
               <View style={styles.body}>
 
 
-                <Text style={styles.TextLabel}>Réservez pour votre future talent de la soirée ...</Text>
-                <ARList {...this.props}/>
+                <Text style={styles.TextLabel}>Bjr {firstName},  Réservez pour votre future talent de la soirée ...</Text>
+                <ARList {...navigation}/>
 
               </View>
 
@@ -84,6 +106,6 @@ export class Home extends React.Component {
           </SafeAreaView>
     );
 
-}};
+};
 
 export default Home;
