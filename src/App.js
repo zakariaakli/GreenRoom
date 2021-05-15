@@ -15,6 +15,7 @@ import DetailsArtist from './screens/DetailsArtist';
 import AddArtistInfos from './screens/addArtist';
 import * as firebase from 'firebase';
 import apiKeys from '../config/keys';
+import media from './screens/addArtist/media'
 
 // ZAK Drawer Navigation -- a new navigation technique from React Navigation -- as nested navigation within the previously implemented Stack Navigation.
 const Drawer = createDrawerNavigator();
@@ -125,6 +126,10 @@ const App = () => {
       <RootStack.Screen
           name="Ajouter Info"
           component={AddArtistInfos}
+        />
+      <RootStack.Screen
+          name="Ajouter media"
+          component={media}
         />
       </RootStack.Navigator>
 

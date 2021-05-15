@@ -29,11 +29,9 @@ class ProfileScreen extends React.Component {
       return (
         <View style={styles.container}>
         <ScrollView>
-          <View >
+          <View>
             <Text style={styles.sectionHeadingStyle}>
-
             </Text>
-
             <View style={styles.navSectionStyle}>
               <Text style={styles.navItemStyle} onPress={() => this.props.navigation.navigate("FirstPage")}><Icon name = 'ios-person' size={15}>   </Icon>
                {this.props.route.params.id}
