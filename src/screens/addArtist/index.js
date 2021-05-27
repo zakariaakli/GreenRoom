@@ -9,25 +9,56 @@ if (!firebase.apps.length) {
   firebase.initializeApp(apiKeys.firebaseConfig);
 }
 
-const currentUser = firebase.auth().currentUser ? firebase.auth().currentUser : null;
-
 const AddArtistInfos = ({navigation}) => {
   this.dbRef = firebase.firestore().collection('userDetails');
 
   const [artisticName, setArtisticName] = useState("");
   const [description, setDescription] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [dbArtisticName, setDbArtisticName] = useState("");
+  const [dbDescription, setDbDescription] = useState("");
+
+  useEffect(() => {
+    const getUserInfos = async()=>{
+      const response=firebase.firestore().collection('userDetails');
+console.log(firebase.auth().currentUser.uid);
+      response.where('userId', '==', firebase.auth().currentUser.uid).get().then(doc=>{
+        console.log(doc.size);
+        if(doc.size>0){
+          console.log(doc.docs[0].data().artisticName)
+          setArtisticName(doc.docs[0].data().artisticName);
+          setDescription(doc.docs[0].data().description);
+          setDbArtisticName(doc.docs[0].data().artisticName);
+          setDbDescription(doc.docs[0].data().description);
+        }
+        else{
+          console.log('no user');
+        }
+      })
+
+
+  }
+  getUserInfos();
+
+  }, [])
 
 const storeUser = () => {
     if (artisticName === '') {
       alert('choisi ton nom artistique!')
-    } else {
+    }
+    else if(artisticName == dbArtisticName && description == dbDescription){
+      console.log('rien')
+      navigation.navigate('Ajouter media');
+    }
+    else {
+      console.log('ajout')
       setIsLoading(true);
       this.dbRef.add({
         artisticName: artisticName,
         description: description,
         userId: firebase.auth().currentUser ? firebase.auth().currentUser.uid : null,
         images:[],
+        imagesToShow:[],
         video:''
       }).then((res) => {
         setArtisticName("");
@@ -50,6 +81,7 @@ const storeUser = () => {
       </View>
     )
   }
+
   return (
     <ScrollView style={styles.container}>
       <View style={styles.inputGroup}>

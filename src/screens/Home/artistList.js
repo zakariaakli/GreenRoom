@@ -1,3 +1,8 @@
+const images = [
+    'https://firebasestorage.googleapis.com/v0/b/greenroom-add9d.appspot.com/o/images%2F4037145b-ed9e-433f-93b5-0e67e2931d3a?alt=media&token=e214ade2-d51d-4f90-821a-cd72f04bfb28',
+    'https://firebasestorage.googleapis.com/v0/b/greenroom-add9d.appspot.com/o/images%2F236b6f7e-bcbb-490b-ac76-12dc39f2195e?alt=media&token=58931e90-647b-417a-9ea2-8b9cc5d4786f'
+]
+
 const users = [
     {
         id:1,
@@ -55,22 +60,54 @@ let styles = {
     }
 }
 
-function ARList({navigation}) {
+const ARList = ({navigation}) => {
+
+    const [artistList, setArtistList] = useState([]);
+    useEffect(() => {
+        const getImages = async () => {
+            const response = await firebase.firestore().collection('userDetails').get();
+            setArtistList(await response.docs.map(doc => doc.data()));
+            //console.log(artistList);
+
+            // artistList.map(item => {
+            //     if (item.images && item.images.length > 0) {
+            //         item.images.map(uri => {
+
+            //             // console.log(uri)
+            //             firebase.storage()
+            //                 .ref('images/' + uri) //name in storage in firebase console
+            //                 .getDownloadURL()
+            //                 .then((url) => {
+            //                     setArtistList(
+            //                         item.imagesToShow = [...item.imagesToShow, url]
+            //                     )
+            //                     //console.log(item);
+            //                 })
+            //                 .catch((e) => console.log('Errors while downloading => ', e));
+            //         })
+            //     }
+            // })
+        }
+        getImages();
+        return () => {
+            setArtistList([]);
+        };
+    }, [])
 
         return (
             // implemented without image with header
 
-            users.map((u, i) => {
+            artistList.map(({artisticName, description, imagesToShow} , i) => {
 
                 return (
 
                     <TouchableWithoutFeedback  key={i} onPress={() => navigation.navigate('Details', {
-                            id: u.id
+                            id: i
                     })}>
                         <View >
-                            <RootComponent arImage={u.avatar} arName={u.title} arResume={u.name} arRating={u.rating} />
+                            <RootComponent key={i} arImages={imagesToShow}  arName={artisticName} arResume={description} arRating={5} />
                         </View>
-                    </TouchableWithoutFeedback>
+                     </TouchableWithoutFeedback>
                 );
             })
         )

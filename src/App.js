@@ -98,7 +98,10 @@ const App = () => {
               <Button onPress={handleSignOut} title="Sign Out" />
             ),
             headerShown : false,
-          })}
+            gestureEnabled: false
+          })
+
+        }
         />
         <RootStack.Screen
           name="Details"

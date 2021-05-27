@@ -9,15 +9,19 @@ if (!firebase.apps.length) {
     firebase.initializeApp(apiKeys.firebaseConfig);
   }
 
- const currentUser = firebase.auth().currentUser ? firebase.auth().currentUser : null;
+ //const currentUser = firebase.auth().currentUser ? firebase.auth().currentUser : null;
+
 
 function media(){
-
+    const [currentUser, setCurrentUser] = useState(null);
     const [image, setImage] = useState(null);
     const [usersDetails, setUsersDetails] = useState([]);
-    const [images, setImages] = useState([])
+    const [imageUrl, setImageUrl] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
+        setCurrentUser(firebase.auth().currentUser.uid);
+
         const im = async() => {if (Platform.OS !== 'web') {
           const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
           if (status !== 'granted') {
@@ -26,24 +30,51 @@ function media(){
         }}
         im();
 
+        const getImages = async()=>{
+          const response=firebase.firestore().collection('userDetails');
+          const data=await response.where('userId', '==', firebase.auth().currentUser.uid).get();
+          let dbImages = await data.docs[0].data().images;
+          for(var i = 0; i<dbImages.length; i++){
+            //console.log(dbImages[i])
+            str(dbImages[i]);
+          }
+      }
+      getImages();
+
+        const str = async(urli) => {
+        firebase.storage()
+        .ref('images/' + urli) //name in storage in firebase console
+        .getDownloadURL()
+        .then((url) => {
+          setImageUrl(imageUrl => [...imageUrl, url]);
+        })
+        .catch((e) => console.log('Errors while downloading => ', e));}
+
+        return () => {
+          setImageUrl([]);
+        };
       }, [])
 
       const fetchUsersDetails=async(imageUri)=>{
         const response=firebase.firestore().collection('userDetails');
-        const data=await response.where('userId', '==', 'ms7JlYODkoSUIlG4sKJEFf6Jzk02').get();
+        const data=await response.where('userId', '==', firebase.auth().currentUser.uid).get();
         const item = await data.docs[0];
         let dbImages = await data.docs[0].data().images;
         await response.doc(item.id).update({
           images: [...dbImages, imageUri]
         }).then(()=>{
-            setImages(dbImages => [...dbImages,imageUri] );
-            // console.log(images);
-            // const im = firebase.storage().ref('/06da9bd6-dd53-47cc-afc5-955f182e6cec.jpg');
-            // setImage(im);
-            //const ref = firebase.storage().ref('/Images');
-            //const url = await ref.getDownloadURL();
+          firebase.storage()
+          .ref('images/' + imageUri) //name in storage in firebase console
+          .getDownloadURL()
+          .then((url) => {
+          setIsLoading(false);
+            setImageUrl(imageUrl => [...imageUrl, url]);
+
+          })
+          .catch((e) => console.log('Errors while downloading => ', e));
         })
         .catch((error)=>{
+          setIsLoading(false);
           Alert.alert(error);
         })
     }
@@ -61,16 +92,18 @@ function media(){
           uploadImage(result.uri, uid)
             .then(() => {
               //setImage(result.uri);
-              Alert.alert("success");
+              // Alert.alert("success");
               fetchUsersDetails(uid);
             })
             .catch((error) => {
               Alert.alert(error);
+              setIsLoading(false);
             });
         }
       }
 
       const uploadImage = async (uri, imageName) => {
+        setIsLoading(true);
         const response = await fetch(uri);
         const blob = await response.blob();
 
@@ -78,16 +111,31 @@ function media(){
         return ref.put(blob);
       }
 
+if (isLoading) {
+  return (
+    <View style={styles.preloader}>
+      <ActivityIndicator size="large" color="#9E9E9E" />
+    </View>
+  )
+}
 
 return (
 <ScrollView style={styles.container}>
       <View>
-        <Button title="Choisit une photo ..." onPress={onChooseImagePress} />
-        {image&& <Image source={{ uri: image }} style={{
-          width: 200,
-          height: 200
-        }}
-        />}
+      <Button title="Choisit une photo ..." onPress={onChooseImagePress} />
+
+      {
+        imageUrl.map((url, i) => (
+          <Image key={i} style={{height: 200, width: 200, paddingBottom: 2}}  source={{uri: url}}/>
+
+        ))
+      }
+
+
+      {/* <Image style={{height: 200, width: 200}}  source={{uri: imageUrl[1]}}/> */}
+
+{/*
+        <Image style={{height: 200, width: 200}} source={{uri: imageUrl}} /> */}
       </View>
     </ScrollView>
 )
