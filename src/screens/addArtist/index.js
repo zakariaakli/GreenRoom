@@ -21,7 +21,6 @@ const AddArtistInfos = ({navigation}) => {
   useEffect(() => {
     const getUserInfos = async()=>{
       const response=firebase.firestore().collection('userDetails');
-console.log(firebase.auth().currentUser.uid);
       response.where('userId', '==', firebase.auth().currentUser.uid).get().then(doc=>{
         console.log(doc.size);
         if(doc.size>0){
@@ -102,7 +101,7 @@ const storeUser = () => {
       </View>
       <View style={styles.button}>
         <Button
-          title='Add User'
+          title='Suivant'
           onPress={() => storeUser()}
           color="#19AC52"
         />

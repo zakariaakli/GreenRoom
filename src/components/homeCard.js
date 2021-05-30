@@ -28,7 +28,7 @@ function RootComponent(props) {
                     <ScrollView pagingEnabled horizontal showsHorizontalScrollIndicator={false} onScroll={change}>
                         {
                             props.arImages.map((url, i) => (
-                                <Image key={i} style={{ width: 350, height: 300, resizeMode: 'cover' }} source={{ uri: url }} />
+                                <Image onStartShouldSetResponder={() => true} key={i} style={{ width: 350, height: 300, resizeMode: 'cover' }} source={{ uri: url }} />
 
                             ))
                         }

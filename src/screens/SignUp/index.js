@@ -1,10 +1,12 @@
-import React, { useState }  from 'react';
+import React, { useState, useEffect }  from 'react';
 import { View, Text, Button, StyleSheet, Alert, Keyboard, ScrollView,SafeAreaView, TextInput } from 'react-native';
 import {CheckBox} from 'react-native-elements'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { registration } from '../../../API/firebaseMethods';
 import apiKeys from '../../../config/keys';
 import * as firebase from 'firebase';
+import ExpoStatusBar from 'expo-status-bar/build/ExpoStatusBar';
+import * as Facebook from 'expo-facebook';
 
 const styles = StyleSheet.create({
   container: {
@@ -83,6 +85,30 @@ const SignUpScreen = ({ onSignUp, navigation }) => {
     setPassword('');
     setConfirmPassword('');
   };
+
+  useEffect(() => {
+
+    firebase.auth().onAuthStateChanged((user) => {
+      if(user!= null){
+        console.log(user);
+      }
+    })
+
+    }, [])
+
+  const loginWithFacebook = async() => {
+    const permissions = ["public_profile", "email"];
+    await Facebook.initializeAsync({"appId" : "338259284397019"});
+
+
+const { type, token} = await Facebook.logInWithReadPermissionsAsync({permissions});
+
+if(type == 'success'){
+  const credential = firebase.auth.FacebookAuthProvider.credential(token)
+  firebase.auth().signInWithCredential(credential).catch((error)=>{ console.log(error); })
+}
+
+  }
 
   const handlePress = () => {
     if (!firstName) {
@@ -168,6 +194,9 @@ const SignUpScreen = ({ onSignUp, navigation }) => {
           <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Sign In')}>
             <Text style={styles.buttonText}>Sign In</Text>
           </TouchableOpacity>
+          {/* <TouchableOpacity style={styles.button} onPress={loginWithFacebook}>
+            <Text style={styles.buttonText}>Login With Facebook</Text>
+          </TouchableOpacity> */}
        </ScrollView>
      </View>
     </SafeAreaView>

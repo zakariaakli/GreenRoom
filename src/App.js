@@ -16,6 +16,7 @@ import AddArtistInfos from './screens/addArtist';
 import * as firebase from 'firebase';
 import apiKeys from '../config/keys';
 import media from './screens/addArtist/media'
+import { loggingOut } from '../API/firebaseMethods';
 
 // ZAK Drawer Navigation -- a new navigation technique from React Navigation -- as nested navigation within the previously implemented Stack Navigation.
 const Drawer = createDrawerNavigator();
@@ -60,9 +61,8 @@ const App = () => {
     setIsAuthenticated(true);
   };
   const handleSignOut = () => {
-    // TODO implement real sign out mechanism
 
-    setIsAuthenticated(false);
+      loggingOut();
   };
   const handleSignUp = () => {
     // TODO implement real sign up mechanism
@@ -86,18 +86,18 @@ const App = () => {
           component={HomeScreen}
           options={({ route, navigation }) => ({
             headerTitle: getFocusedRouteNameFromRoute(route),
-            headerLeft: () => (
-              <Button
-                onPress={() =>
-                  navigation.dispatch(DrawerActions.toggleDrawer())
-                }
-                title="Menu"
-              />
-            ),
+            // headerLeft: () => (
+            //   <Button
+            //     onPress={() =>
+            //       navigation.dispatch(DrawerActions.toggleDrawer())
+            //     }
+            //     title="Menu"
+            //   />
+            // ),
             headerRight: () => (
               <Button onPress={handleSignOut} title="Sign Out" />
             ),
-            headerShown : false,
+            //headerShown : false,
             gestureEnabled: false
           })
 

@@ -34,7 +34,10 @@ class ProfileScreen extends React.Component {
             </Text>
             <View style={styles.navSectionStyle}>
               <Text style={styles.navItemStyle} onPress={() => this.props.navigation.navigate("FirstPage")}><Icon name = 'ios-person' size={15}>   </Icon>
-               {this.props.route.params.id}
+               {this.props.route.params.artisticName}
+              </Text>
+              <Text style={styles.navItemStyle}><Icon name = 'ios-calendar' size={15}>   </Icon>
+              {this.props.route.params.description}
               </Text>
               <Text style={styles.navItemStyle}><Icon name = 'ios-calendar' size={15}>   </Icon>
               Réservations
@@ -49,7 +52,7 @@ class ProfileScreen extends React.Component {
 
             </Text>
             <View style={styles.navSectionStyle}>
-              <Text style={styles.navItemStyle}><Icon name = 'ios-microphone' size={15}>   </Icon>
+              <Text style={styles.navItemStyle}><Icon name = 'ios-help-buoy' size={15}>   </Icon>
                 Passer en mode artiste
               </Text>
             </View>

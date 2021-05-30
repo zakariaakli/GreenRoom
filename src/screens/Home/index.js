@@ -97,7 +97,7 @@ function Home (navigation) {
               <View style={styles.body}>
 
 
-                <Text style={styles.TextLabel}>Bjr {firstName},  Réservez pour votre future talent de la soirée ...</Text>
+                <Text style={styles.TextLabel}>Bjr {firstName}, Réservez le meilleur talent GreenRoom ...</Text>
                 <ARList {...navigation}/>
 
               </View>
