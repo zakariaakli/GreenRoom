@@ -43,7 +43,7 @@ class ProfileScreen extends React.Component {
               Réservations
               </Text>
               <Text style={styles.navItemStyle}><Icon name = 'ios-text' size={15}>   </Icon>
-              Messages
+              écrire un message
               </Text>
             </View>
           </View>

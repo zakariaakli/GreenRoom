@@ -1,12 +1,13 @@
-import React, { useState, useEffect }  from 'react';
-import { View, Text, Button, StyleSheet, Alert, Keyboard, ScrollView,SafeAreaView, TextInput } from 'react-native';
-import {CheckBox} from 'react-native-elements'
+import React, { useState, useEffect } from 'react';
+import { View, Text, Button, StyleSheet, Alert, Keyboard, ScrollView, SafeAreaView, TextInput } from 'react-native';
+
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { registration } from '../../../API/firebaseMethods';
 import apiKeys from '../../../config/keys';
 import * as firebase from 'firebase';
 import ExpoStatusBar from 'expo-status-bar/build/ExpoStatusBar';
 import * as Facebook from 'expo-facebook';
+import { Checkbox } from 'react-native-paper';
 
 const styles = StyleSheet.create({
   container: {
@@ -18,9 +19,9 @@ const styles = StyleSheet.create({
   },
   textInput: {
     width: 300,
-    fontSize:18,
+    fontSize: 18,
     borderWidth: 1,
-    borderColor:'#a4eddf',
+    borderColor: '#a4eddf',
     padding: 10,
     margin: 5,
   },
@@ -28,7 +29,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 25,
     margin: '5%',
-    marginTop:'15%',
+    marginTop: '15%',
     fontWeight: 'bold',
     color: '#2E6194',
   },
@@ -43,7 +44,7 @@ const styles = StyleSheet.create({
     margin: '5%',
   },
   buttonText: {
-    fontSize:20,
+    fontSize: 20,
     color: 'white',
     fontWeight: 'bold',
     textAlign: 'center',
@@ -69,13 +70,12 @@ const styles = StyleSheet.create({
 
 const SignUpScreen = ({ onSignUp, navigation }) => {
 
-  const [checked, setCheck] = useState(false);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [isSelected, setSelection] = useState(false);
+  const [checked, setChecked] = React.useState(false);
 
 
   const emptyState = () => {
@@ -89,24 +89,24 @@ const SignUpScreen = ({ onSignUp, navigation }) => {
   useEffect(() => {
 
     firebase.auth().onAuthStateChanged((user) => {
-      if(user!= null){
+      if (user != null) {
         console.log(user);
       }
     })
 
-    }, [])
+  }, [])
 
-  const loginWithFacebook = async() => {
+  const loginWithFacebook = async () => {
     const permissions = ["public_profile", "email"];
-    await Facebook.initializeAsync({"appId" : "338259284397019"});
+    await Facebook.initializeAsync({ "appId": "338259284397019" });
 
 
-const { type, token} = await Facebook.logInWithReadPermissionsAsync({permissions});
+    const { type, token } = await Facebook.logInWithReadPermissionsAsync({ permissions });
 
-if(type == 'success'){
-  const credential = firebase.auth.FacebookAuthProvider.credential(token)
-  firebase.auth().signInWithCredential(credential).catch((error)=>{ console.log(error); })
-}
+    if (type == 'success') {
+      const credential = firebase.auth.FacebookAuthProvider.credential(token)
+      firebase.auth().signInWithCredential(credential).catch((error) => { console.log(error); })
+    }
 
   }
 
@@ -128,8 +128,11 @@ if(type == 'success'){
         password,
         lastName,
         firstName,
-      ).then(function(){
-        navigation.navigate('Home');
+      ).then(function () {
+        if (!checked)
+          navigation.navigate('Home');
+        else
+          navigation.navigate('Ajouter Info');
         emptyState();
       });
 
@@ -138,67 +141,68 @@ if(type == 'success'){
 
   return (
     <SafeAreaView>
-     <View style={styles.container}>
-       <Text style={styles.text}>Create an account </Text>
+      <View style={styles.container}>
+        <Text style={styles.text}>Create an account </Text>
 
-       <ScrollView onBlur={Keyboard.dismiss}>
-          <TextInput
+        <TextInput
           style={styles.textInput}
           placeholder="First name*"
           value={firstName}
           onChangeText={(name) => setFirstName(name)}
-          />
-         <TextInput
+        />
+        <TextInput
           style={styles.textInput}
           placeholder="Last name"
           value={lastName}
           onChangeText={(name) => setLastName(name)}
-         />
+        />
 
-         <TextInput
+        <TextInput
           style={styles.textInput}
           placeholder="Enter your email*"
           value={email}
           onChangeText={(email) => setEmail(email)}
           keyboardType="email-address"
           autoCapitalize="none"
-         />
+        />
 
-          <TextInput
+        <TextInput
           style={styles.textInput}
           placeholder="Enter your password*"
           value={password}
           onChangeText={(password) => setPassword(password)}
           secureTextEntry={true}
-         />
-         <TextInput
+        />
+        <TextInput
           style={styles.textInput}
           placeholder="Retype your password to confirm*"
           value={confirmPassword}
           onChangeText={(password2) => setConfirmPassword(password2)}
           secureTextEntry={true}
-          />
-          <View style={styles.checkboxContainer}>
-        <CheckBox
-          value={isSelected}
-          onValueChange={setSelection}
-          style={styles.checkbox}
         />
-        <Text style={styles.label}>check pour savoir si on est ds le cas artist</Text>
-      </View>
-          <TouchableOpacity style={styles.button} onPress={handlePress}>
-           <Text style={styles.buttonText}>Sign Up</Text>
-          </TouchableOpacity>
+        <View style={styles.checkboxContainer}>
+          <Text style={styles.label}>Jeune artiste ?</Text>
+          <Checkbox style={styles.checkbox}
+            status={checked ? 'checked' : 'unchecked'}
+            onPress={() => {
+              setChecked(!checked);
+            }}
+          />
 
-          <Text style={styles.inlineText}>Already have an account?</Text>
-          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Sign In')}>
-            <Text style={styles.buttonText}>Sign In</Text>
-          </TouchableOpacity>
-          {/* <TouchableOpacity style={styles.button} onPress={loginWithFacebook}>
+        </View>
+        <TouchableOpacity style={styles.button} onPress={handlePress}>
+          <Text style={styles.buttonText}>Sign Up</Text>
+        </TouchableOpacity>
+
+        <Text style={styles.inlineText}>Already have an account?</Text>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Sign In')}>
+          <Text style={styles.buttonText}>Sign In</Text>
+        </TouchableOpacity>
+        {/* <TouchableOpacity style={styles.button} onPress={loginWithFacebook}>
             <Text style={styles.buttonText}>Login With Facebook</Text>
           </TouchableOpacity> */}
-       </ScrollView>
-     </View>
+
+      </View>
     </SafeAreaView>
 
 

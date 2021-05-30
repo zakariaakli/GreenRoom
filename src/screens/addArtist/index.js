@@ -10,6 +10,7 @@ if (!firebase.apps.length) {
 }
 
 const AddArtistInfos = ({navigation}) => {
+
   this.dbRef = firebase.firestore().collection('userDetails');
 
   const [artisticName, setArtisticName] = useState("");
@@ -58,7 +59,8 @@ const storeUser = () => {
         userId: firebase.auth().currentUser ? firebase.auth().currentUser.uid : null,
         images:[],
         imagesToShow:[],
-        video:''
+        video:'',
+        isArtist: true
       }).then((res) => {
         setArtisticName("");
         setDescription("");
