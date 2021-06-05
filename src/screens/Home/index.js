@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
       right: 0,
     },
     body: {
-      backgroundColor: '#00ffff'
+      
 
     },
     sectionContainer: {

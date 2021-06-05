@@ -5,6 +5,7 @@ import {
     StyleSheet,
     ScrollView,
     Alert,
+    Image
 
 } from 'react-native';
 
@@ -28,114 +29,73 @@ class ProfileScreen extends React.Component {
 
       return (
         <View style={styles.container}>
-        <ScrollView>
-          <View>
-            <Text style={styles.sectionHeadingStyle}>
-            </Text>
-            <View style={styles.navSectionStyle}>
-              <Text style={styles.navItemStyle} onPress={() => this.props.navigation.navigate("FirstPage")}><Icon name = 'ios-person' size={15}>   </Icon>
-               {this.props.route.params.artisticName}
-              </Text>
-              <Text style={styles.navItemStyle}><Icon name = 'ios-calendar' size={15}>   </Icon>
-              {this.props.route.params.description}
-              </Text>
-              <Text style={styles.navItemStyle}><Icon name = 'ios-calendar' size={15}>   </Icon>
-              Réservations
-              </Text>
-              <Text style={styles.navItemStyle}><Icon name = 'ios-text' size={15}>   </Icon>
-              écrire un message
-              </Text>
+              <View style={styles.header}></View>
+              <Image style={styles.avatar} source={{uri: 'https://bootdey.com/img/Content/avatar/avatar6.png'}}/>
+              
+              <View style={styles.body}>
+                <View style={styles.bodyContent}>
+                  <Text style={styles.name}>{this.props.route.params.artisticName} </Text>
+                  <Text style={styles.info}>Guitarist</Text>
+                  <Text style={styles.description}> {this.props.route.params.description} </Text>
+                  <Text style={styles.description}> Paris, France </Text>
+                  
+                  
+                </View>
             </View>
           </View>
-          <View>
-            <Text style={styles.sectionHeadingStyle}>
-
-            </Text>
-            <View style={styles.navSectionStyle}>
-              <Text style={styles.navItemStyle}><Icon name = 'ios-help-buoy' size={15}>   </Icon>
-                Passer en mode artiste
-              </Text>
-            </View>
-          </View>
-          <View>
-            <Text style={styles.sectionHeadingStyle}>
-
-            </Text>
-            <View style={styles.navSectionStyle}>
-              <Text style={styles.navItemStyle}><Icon name = 'ios-help-buoy' size={15}>   </Icon>
-              Aide
-              </Text>
-              <TouchableOpacity  onPress={handlePress}>
-           <Text>Se deconnecter</Text>
-          </TouchableOpacity>
-            </View>
-          </View>
-        </ScrollView>
-        </View>
 
       );
     }
   }
   const styles = StyleSheet.create({
-    scrollView: {
-      backgroundColor: '#f0f8ff',
+    header:{
+      backgroundColor: "purple",
+      height:150,
     },
-    engine: {
+    avatar: {
+      width: 100,
+      height: 100,
+      borderRadius: 63,
+      borderWidth: 4,
+      borderColor:  "purple",
+      marginBottom:10,
+      alignSelf:'center',
       position: 'absolute',
-      right: 0,
+      marginTop:20
     },
-    body: {
-      backgroundColor: '#00ffff'
-
+    name:{
+      fontSize:22,
+      color:"#FFFFFF",
+      fontWeight: 'bold'
+      
     },
-    sectionContainer: {
-      marginTop: 32,
-      paddingHorizontal: 24,
+    body:{
+      marginTop:40,
+      
     },
-    sectionTitle: {
-      fontSize: 24,
-      fontWeight: '600',
-      color:  '#ff1493',
+    bodyContent: {
+      flex: 1,
+      alignItems: 'center',
+      padding:30,
     },
-    sectionDescription: {
-      marginTop: 8,
-      fontSize: 18,
-      fontWeight: '400',
-      color: '#ff1493',
+    name:{
+      fontSize:28,
+      color: "#696969",
+      fontWeight: "600",
+      marginTop : -50, 
+      fontWeight: 'bold'
     },
-    highlight: {
-      fontWeight: '700',
+    info:{
+      fontSize:18,
+      color: "purple",
+      marginTop:10,
     },
-    footer: {
-      color:  '#ff1493',
-      fontSize: 12,
-      fontWeight: '600',
-      padding: 4,
-      paddingRight: 12,
-      textAlign: 'right',
-    },
-    TextLabel: {
-      fontSize: 35,
-      color: 'darkorchid',
-      fontWeight: 'bold',
-      textAlign: 'justify',
-      left: 15
-
-    },
-    navItemStyle: {
-        padding: 10
-      },
-      navSectionStyle: {
-        backgroundColor: 'lightgrey'
-      },
-    sectionHeadingStyle: {
-        paddingVertical: 10,
-        paddingHorizontal: 5
-      },
-    footerContainer: {
-        padding: 20,
-        backgroundColor: 'lightgrey'
-      }
+    description:{
+      fontSize:16,
+      color: "#696969",
+      marginTop:10,
+      textAlign: 'center',
+    }
 
   });
 
