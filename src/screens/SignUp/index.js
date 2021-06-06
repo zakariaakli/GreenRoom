@@ -129,9 +129,9 @@ const SignUpScreen = ({ onSignUp, navigation }) => {
         lastName,
         firstName,
       ).then(function () {
-        if (!checked)
-          navigation.navigate('appTabs');
-        else
+        // if (!checked)
+        //   navigation.navigate('appTabs');
+        // else
           navigation.navigate('Ajouter Info');
         emptyState();
       });

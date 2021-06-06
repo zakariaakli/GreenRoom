@@ -36,7 +36,7 @@ const SignInScreen = ({ onSignIn, navigation }) => {
           else {
             navigation.navigate('Ajouter Info');
           }
-        }).catch(error =>{ console.log(error) })
+        }).catch((error) =>{ console.log(error) })
 
       }
 
