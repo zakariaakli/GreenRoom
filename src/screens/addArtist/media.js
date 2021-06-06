@@ -12,7 +12,7 @@ if (!firebase.apps.length) {
 //const currentUser = firebase.auth().currentUser ? firebase.auth().currentUser : null;
 
 
-function media() {
+function media({navigation}) {
   const [currentUser, setCurrentUser] = useState(null);
   const [image, setImage] = useState(null);
   const [usersDetails, setUsersDetails] = useState([]);
@@ -127,6 +127,11 @@ function media() {
     return ref.put(blob);
   }
 
+  const finish = () => {
+    navigation.navigate('appTabs');
+
+  }
+
   if (isLoading) {
     return (
       <View style={styles.preloader}>
@@ -161,8 +166,9 @@ function media() {
 
 </View>
 
-        </View>
 
+        </View>
+        <Button title="Terminé" onPress={finish} />
 
 
 

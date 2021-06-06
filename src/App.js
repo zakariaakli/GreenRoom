@@ -10,7 +10,6 @@ import SignInScreen from './screens/SignIn';
 import SignUpScreen from './screens/SignUp';
 import PasswordForgetScreen from './screens/PasswordForget';
 import HomeScreen from './screens/Home';
-import ProfileScreen from './screens/Profile';
 import DetailsArtist from './screens/DetailsArtist';
 import AddArtistInfos from './screens/addArtist';
 import * as firebase from 'firebase';
@@ -18,70 +17,56 @@ import apiKeys from '../config/keys';
 import media from './screens/addArtist/media'
 import { loggingOut } from '../API/firebaseMethods';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import ProfileScreen from './screens/Profil';
+import UpdateArtistScreen from './screens/updateArtist';
 
 // ZAK Drawer Navigation -- a new navigation technique from React Navigation -- as nested navigation within the previously implemented Stack Navigation.
 const Drawer = createDrawerNavigator();
-// function HomeStack() {
-//   return (
-//     <RootStack.Navigator
-//         navigationOptions= {{
-//           headerLeft: ()=> null,
-//           }}
-//       screenOptions={{
-//         headerStyle: { backgroundColor: '#FF5A60' },
-//         headerTintColor: '#fff',
-//         headerTitleStyle: { fontWeight: 'bold' },
-//       }}>
-//       <RootStack.Screen
-//           name="Home"
-//           component={HomeScreen}
-//           options={({ route, navigation }) => ({
-//             headerTitle: getFocusedRouteNameFromRoute(route),
-//             // headerLeft: () => (
-//             //   <Button
-//             //     onPress={() =>
-//             //       navigation.dispatch(DrawerActions.toggleDrawer())
-//             //     }
-//             //     title="Menu"
-//             //   />
-//             // ),
-//             headerRight: () => (
-//               <Button onPress={handleSignOut} title="Sign Out" />
-//             ),
-//             //headerShown : false,
-//             gestureEnabled: false
-//           })
+function HomeStack() {
+  return (
+    <RootStack.Navigator
+        navigationOptions= {{
+          headerLeft: ()=> null,
+          }}
+      screenOptions={{
+        headerStyle: { backgroundColor: '#FF5A60' },
+        headerTintColor: '#fff',
+        headerTitleStyle: { fontWeight: 'bold' },
+        headerShown: false
+      }}>
+      <RootStack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={({ route, navigation }) => ({
+            headerTitle: getFocusedRouteNameFromRoute(route),
+          })
+        }
+        />
+      <RootStack.Screen
+        name="Details"
+        component={DetailsArtist}
+      />
+    </RootStack.Navigator>
+  );
+}
+function SettingsStack() {
+  return (
+    <RootStack.Navigator
 
-//         }
-//         /> 
-//       <RootStack.Screen
-//         name="Details"
-//         component={DetailsArtist}
-//       />
-//     </RootStack.Navigator>
-//   );
-// }
-// function SettingsStack() {
-//   return (
-//     <RootStack.Navigator
-  
-//       screenOptions={{
-//         headerStyle: { backgroundColor: '#FF5A60' },
-//         headerTintColor: '#fff',
-//         headerTitleStyle: { fontWeight: 'bold' },
-//       }}>
-//       <RootStack.Screen
-//         name="Details"
-//         component={DetailsArtist}
-//       />
-//       <RootStack.Screen
-//         name="Home"
-//         component={HomeScreen}
-       
-//       />
-//     </RootStack.Navigator>
-//   );
-// }
+      screenOptions={{
+        headerStyle: { backgroundColor: '#FF5A60' },
+        headerTintColor: '#fff',
+        headerTitleStyle: { fontWeight: 'bold' },
+        headerShown: false
+      }}>
+      <RootStack.Screen
+        name="Profil"
+        component={ProfileScreen}
+      />
+
+    </RootStack.Navigator>
+  );
+}
 
 const HomeDrawer = () => {
   return (
@@ -101,7 +86,7 @@ const Tab = createBottomTabNavigator();
 const appTabs = () => {
   return (
     <Tab.Navigator
-        
+
         tabBarOptions={{
           activeTintColor: '#FF5A60',
         }}>
@@ -125,7 +110,7 @@ const appTabs = () => {
             ),
           }}
         />
-        
+
       </Tab.Navigator>
   );
 };
@@ -170,35 +155,14 @@ const App = () => {
           options={{
             animationTypeForReplace: 'pop',
           }}
-          
-        />
-        <RootStack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={({ route, navigation }) => ({
-            headerTitle: getFocusedRouteNameFromRoute(route),
-            // headerLeft: () => (
-            //   <Button
-            //     onPress={() =>
-            //       navigation.dispatch(DrawerActions.toggleDrawer())
-            //     }
-            //     title="Menu"
-            //   />
-            // ),
-            headerRight: () => (
-              <Button onPress={handleSignOut} title="Sign Out" />
-            ),
-            //headerShown : false,
-            gestureEnabled: false
-          })
 
-        }
-        /> 
-        <RootStack.Screen
-          name="Details"
-          component={DetailsArtist}
-         
         />
+ <RootStack.Screen
+          name="appTabs"
+          component={appTabs}
+
+        />
+
         <RootStack.Screen name="Sign In">
           {(props) => (
             <SignInScreen {...props} onSignIn={handleSignIn} />
@@ -218,11 +182,17 @@ const App = () => {
           name="Ajouter Info"
           component={AddArtistInfos}
         />
+
+        <RootStack.Screen
+          name="Modifer Info"
+          component={UpdateArtistScreen}
+        />
       <RootStack.Screen
           name="Ajouter media"
           component={media}
         />
-         
+
+
       </RootStack.Navigator>
 
     </NavigationContainer>

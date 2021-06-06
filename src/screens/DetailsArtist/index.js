@@ -31,16 +31,17 @@ class ProfileScreen extends React.Component {
         <View style={styles.container}>
               <View style={styles.header}></View>
               <Image style={styles.avatar} source={{uri: 'https://bootdey.com/img/Content/avatar/avatar6.png'}}/>
-              
+
               <View style={styles.body}>
                 <View style={styles.bodyContent}>
                   <Text style={styles.name}>{this.props.route.params.artisticName} </Text>
                   <Text style={styles.info}>Guitarist</Text>
                   <Text style={styles.description}> {this.props.route.params.description} </Text>
                   <Text style={styles.description}> Paris, France </Text>
-                  
-                  
+
+
                 </View>
+
             </View>
           </View>
 
@@ -67,11 +68,11 @@ class ProfileScreen extends React.Component {
       fontSize:22,
       color:"#FFFFFF",
       fontWeight: 'bold'
-      
+
     },
     body:{
       marginTop:40,
-      
+
     },
     bodyContent: {
       flex: 1,
@@ -82,7 +83,7 @@ class ProfileScreen extends React.Component {
       fontSize:28,
       color: "#696969",
       fontWeight: "600",
-      marginTop : -50, 
+      marginTop : -50,
       fontWeight: 'bold'
     },
     info:{

@@ -9,20 +9,24 @@ if (!firebase.apps.length) {
   firebase.initializeApp(apiKeys.firebaseConfig);
 }
 
-const AddArtistInfos = ({navigation}) => {
+const updateAritsInfos = ({navigation}) => {
+
+  this.dbRef = firebase.firestore().collection('userDetails');
 
   const [artisticName, setArtisticName] = useState("");
   const [description, setDescription] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [dbArtisticName, setDbArtisticName] = useState("");
   const [dbDescription, setDbDescription] = useState("");
+  const [docId, setDocId] = useState("");
 
   useEffect(() => {
     const getUserInfos = async()=>{
       const response=firebase.firestore().collection('userDetails');
       response.where('userId', '==', firebase.auth().currentUser.uid).get().then(doc=>{
-        console.log(doc.docs[0].id);
+        console.log(doc.size);
         if(doc.size>0){
+          setDocId(doc.docs[0].id);
           console.log(doc.docs[0].data().artisticName)
           setArtisticName(doc.docs[0].data().artisticName);
           setDescription(doc.docs[0].data().description);
@@ -51,14 +55,9 @@ const storeUser = () => {
     else {
       console.log('ajout')
       setIsLoading(true);
-      firebase.firestore().collection('userDetails').add({
+      firebase.firestore().collection('userDetails').doc(docId).update({
         artisticName: artisticName,
         description: description,
-        userId: firebase.auth().currentUser ? firebase.auth().currentUser.uid : null,
-        images:[],
-        imagesToShow:[],
-        video:'',
-        isArtist: true
       }).then((res) => {
         setArtisticName("");
         setDescription("");
@@ -134,4 +133,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default AddArtistInfos;
+export default updateAritsInfos;
