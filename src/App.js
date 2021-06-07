@@ -88,7 +88,7 @@ const appTabs = () => {
     <Tab.Navigator
 
         tabBarOptions={{
-          activeTintColor: '#FF5A60',
+          activeTintColor: 'darkorchid',
         }}>
         <Tab.Screen
           name="HomeStack"
@@ -143,7 +143,7 @@ const App = () => {
   return (
     <NavigationContainer>
       <RootStack.Navigator screenOptions={{
-        headerStyle: { backgroundColor: 'purple' },
+        headerStyle: { backgroundColor: 'darkorchid' },
         headerTintColor: 'black',
         headerTitleStyle: { fontWeight: 'bold' },
       }}

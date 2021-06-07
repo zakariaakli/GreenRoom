@@ -50,7 +50,7 @@ class ProfileScreen extends React.Component {
   }
   const styles = StyleSheet.create({
     header:{
-      backgroundColor: "purple",
+      backgroundColor: "darkorchid",
       height:150,
     },
     avatar: {
@@ -58,7 +58,7 @@ class ProfileScreen extends React.Component {
       height: 100,
       borderRadius: 63,
       borderWidth: 4,
-      borderColor:  "purple",
+      borderColor:  "darkorchid",
       marginBottom:10,
       alignSelf:'center',
       position: 'absolute',
@@ -88,7 +88,7 @@ class ProfileScreen extends React.Component {
     },
     info:{
       fontSize:18,
-      color: "purple",
+      color: "darkorchid",
       marginTop:10,
     },
     description:{
