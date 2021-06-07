@@ -142,8 +142,9 @@ function media({navigation}) {
 
   return (
     <ScrollView style={styles.container}>
-      <View>
-        <Button title="Choisit une photo ..." onPress={onChooseImagePress} />
+      <View >
+        <Text style={styles.text}>Ajouter vos photos ...</Text>
+        <View style={{ borderBottomColor: "#DCE3EC", borderBottomWidth: 1, marginTop : "5%", width : "80%", marginLeft : "8%"}} />
         <View style={{ backgroundColor: "#eee", borderRadius: 10, overflow: "hidden" }}>
         <View style={{ width: 350, backgroundColor: "white" }}>
 <ScrollView pagingEnabled horizontal showsHorizontalScrollIndicator={false} onScroll={change}>
@@ -168,7 +169,15 @@ function media({navigation}) {
 
 
         </View>
-        <Button title="Terminé" onPress={finish} />
+        <View style={{ borderBottomColor: "#DCE3EC", borderBottomWidth: 1, marginTop : "5%", width : "80%", marginLeft : "8%"}} />
+        <View>
+        <Button title="Choisit une photo ..." color="orange" onPress={onChooseImagePress} />
+        </View>
+        <View style={{ borderBottomColor: "#DCE3EC", borderBottomWidth: 1, marginTop : "5%", width : "80%", marginLeft : "8%"}} />
+        <View>
+        <Button title="Terminé" color="darkorchid" onPress={finish} />
+        </View>
+        
 
 
 
@@ -203,7 +212,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   pagingText: {fontSize: 10, color:'#888', margin:3},
-    paginActiveText: {fontSize: 10, color:'#fff', margin:3}
+    paginActiveText: {fontSize: 10, color:'#fff', margin:3}, 
+    text : {
+      fontSize : 20,
+        color : "darkorchid",
+        fontWeight: 'bold', 
+        textAlign : 'left'
+    }
 })
 
 export default media;

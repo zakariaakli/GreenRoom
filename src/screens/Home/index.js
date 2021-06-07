@@ -11,6 +11,7 @@ import  ARList  from './artistList';
 import * as firebase from 'firebase';
 import {loggingOut} from '../../../API/firebaseMethods';
 import apiKeys from '../../../config/keys';
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 const styles = StyleSheet.create({
     scrollView: {
@@ -51,7 +52,7 @@ const styles = StyleSheet.create({
       textAlign: 'right',
     },
     TextLabel: {
-      fontSize: 15,
+      fontSize: RFPercentage(2),
       color: 'darkorchid',
       fontWeight: 'bold',
       textAlign: 'justify',

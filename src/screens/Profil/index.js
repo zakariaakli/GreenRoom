@@ -87,6 +87,7 @@ function profil({ navigation }) {
         <View style={styles.container}>
           <View style={styles.body}>
           <View style={styles.bodyContent}>
+          <View style={{ borderBottomColor: "#DCE3EC", borderBottomWidth: 1, marginTop : "10%", width : "90%", marginLeft : "5%"}} />
             <Text style = {styles.subtitle}>À propos de </Text>
               <Text style={styles.text}>  Disponibilité :  Immédiate</Text>
               <Text style={styles.text}>  Ville :  Paris</Text>
@@ -127,7 +128,7 @@ function profil({ navigation }) {
             <Button
                 title="modifier profil"
                 color="orange"
-                onPress={handlePress}
+                onPress={modifyProfil}
             />
             </View>
             <View style={{ borderBottomColor: "#DCE3EC", borderBottomWidth: 1, marginTop : "5%", width : "80%", marginLeft : "8%"}} />
@@ -138,7 +139,7 @@ function profil({ navigation }) {
                 onPress={handlePress}
             />
             </View>
-            
+            <View style={{ borderBottomColor: "#DCE3EC", borderBottomWidth: 1, marginTop : "5%", width : "80%", marginLeft : "8%"}} />
         </ScrollView>
 
     );
