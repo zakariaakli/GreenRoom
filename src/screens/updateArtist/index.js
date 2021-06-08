@@ -102,7 +102,7 @@ const storeUser = () => {
         <Button
           title='Suivant'
           onPress={() => storeUser()}
-          color="#19AC52"
+          color="darkorchid"
         />
       </View>
     </ScrollView>
