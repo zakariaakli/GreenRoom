@@ -70,7 +70,7 @@ function profil({ navigation }) {
         navigation.navigate('Sign Up');
     }
 
-    const modifyProfil = () =>{
+    const modifyProfil = () => {
         navigation.navigate('Modifer Info');
     }
 
@@ -83,102 +83,111 @@ function profil({ navigation }) {
                 <Text style={styles.name}>{name} </Text>
                 <Text style={styles.info}>{description}</Text>
             </View>
-            <View style={{ borderBottomColor: "#DCE3EC", borderBottomWidth: 1, marginTop : "25%", width : "90%", marginLeft : "5%"}} />
-        <View style={styles.container}>
-          <View style={styles.body}>
-          <View style={styles.bodyContent}>
-          <View style={{ borderBottomColor: "#DCE3EC", borderBottomWidth: 1, marginTop : "10%", width : "90%", marginLeft : "5%"}} />
-            <Text style = {styles.subtitle}>À propos de </Text>
-              <Text style={styles.text}>  Disponibilité :  Immédiate</Text>
-              <Text style={styles.text}>  Ville :  Paris</Text>
-              <Text style={styles.text}>  Age :  19 ans</Text>
-              <Text style={styles.text}>  Expérience :  confirmé</Text>
-              
-            </View>
-            <View style={{ borderBottomColor: "#DCE3EC", borderBottomWidth: 1, marginTop : "-10%", width : "90%", marginLeft : "5%"}} />
-            <View style={styles.bodyContent}>
-            <Text style = {styles.subtitle}>Instruments utilisés</Text>
-              <Text style={styles.text}>Guitar, Saxo, Piano </Text>
-            </View>
-            <View style={{ borderBottomColor: "#DCE3EC", borderBottomWidth: 1, marginTop : "-8%", width : "90%", marginLeft : "5%"}} />
-            <View style={styles.bodyContent}>
-            <Text style = {styles.subtitle}>Mobilité </Text>
-              <Text style={styles.text}> Nante, La Rochelle, Brest  </Text>
-             
-            </View>
-            
-            
-            </View>
-            
-            </View>
-            <View style={{ borderBottomColor: "#DCE3EC", borderBottomWidth: 1, marginTop : "50%", width : "80%", marginLeft : "8%"}} />
+            <View style={{ borderBottomColor: "#DCE3EC", borderBottomWidth: 1, marginTop: "25%", width: "90%", marginLeft: "5%" }} />
             <View style={styles.container}>
-          <View style={styles.body}>
-          <View style={styles.bodyContent}>
-            <Text style = {styles.subtitle}>Commentaires</Text>
-            <Image style={styles.commentsAvatar} source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/greenroom-add9d.appspot.com/o/images%2F4037145b-ed9e-433f-93b5-0e67e2931d3a?alt=media&token=e214ade2-d51d-4f90-821a-cd72f04bfb28' }} />
-            <Text style={styles.NamecommentText}> Fréderic </Text>
-            <Text style={styles.commentText}> Trés bon service, merci beaucoup ! </Text>
+                <View style={styles.body}>
+                    <View style={styles.bodyContent}>
+                        {/* <View style={{ borderBottomColor: "#DCE3EC", borderBottomWidth: 1, marginTop : "10%", width : "90%", marginLeft : "5%"}} /> */}
+                        <Text style={styles.subtitle}>À propos de </Text>
+                        <Text style={styles.text}>  Disponibilité :  Immédiate</Text>
+                        <Text style={styles.text}>  Ville :  Paris</Text>
+                        <Text style={styles.text}>  Age :  19 ans</Text>
+                        <Text style={styles.text}>  Expérience :  confirmé</Text>
+
+                    </View>
+                    {/* <View style={{ borderBottomColor: "#DCE3EC", borderBottomWidth: 1, marginTop: "-10%", width: "90%", marginLeft: "5%" }} /> */}
+                    <View style={styles.bodyContent}>
+                        <Text style={styles.subtitle}>Instruments utilisés</Text>
+                        <Text style={styles.text}>Guitar, Saxo, Piano </Text>
+                    </View>
+                    {/* <View style={{ borderBottomColor: "#DCE3EC", borderBottomWidth: 1, marginTop: "-8%", width: "90%", marginLeft: "5%" }} /> */}
+                    <View style={styles.bodyContent}>
+                        <Text style={styles.subtitle}>Mobilité </Text>
+                        <Text style={styles.text}> Nante, La Rochelle, Brest  </Text>
+
+                    </View>
+
+
+                </View>
+
             </View>
-            
-            </View>
-            <View style={{ borderBottomColor: "#DCE3EC", borderBottomWidth: 1, marginTop : "10%", width : "80%", marginLeft : "8%"}} />
+            <View style={{ borderBottomColor: "#DCE3EC", borderBottomWidth: 1, marginTop: "50%", width: "80%", marginLeft: "8%" }} />
+            <View style={styles.container}>
+                <View style={styles.body}>
+                    <View style={styles.bodyContent}>
+                        <Text style={styles.subtitleComments}>Commentaires</Text>
+                        <Image style={styles.commentsAvatar} source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/greenroom-add9d.appspot.com/o/images%2F4037145b-ed9e-433f-93b5-0e67e2931d3a?alt=media&token=e214ade2-d51d-4f90-821a-cd72f04bfb28' }} />
+                        <Text style={styles.NamecommentText}> Fréderic </Text>
+                        <Text style={styles.commentText}> Trés bon service, merci beaucoup ! </Text>
+                    </View>
+
+                </View>
+                <View style={{ borderBottomColor: "#DCE3EC", borderBottomWidth: 1, marginTop: "10%", width: "80%", marginLeft: "8%" }} />
             </View>
             <View>
-            <Button
-                title="modifier profil"
-                color="orange"
-                onPress={modifyProfil}
-            />
+                <Button
+                    title="modifier profil"
+                    color="orange"
+                    onPress={modifyProfil}
+                />
             </View>
-            <View style={{ borderBottomColor: "#DCE3EC", borderBottomWidth: 1, marginTop : "5%", width : "80%", marginLeft : "8%"}} />
+            <View style={{ borderBottomColor: "#DCE3EC", borderBottomWidth: 1, marginTop: "5%", width: "80%", marginLeft: "8%" }} />
             <View>
-            <Button
-                title="Se deconnecter"
-                color="darkorchid"
-                onPress={handlePress}
-            />
+                <Button
+                    title="Se deconnecter"
+                    color="darkorchid"
+                    onPress={handlePress}
+                />
             </View>
-            <View style={{ borderBottomColor: "#DCE3EC", borderBottomWidth: 1, marginTop : "5%", width : "80%", marginLeft : "8%"}} />
+            <View style={{ borderBottomColor: "#DCE3EC", borderBottomWidth: 1, marginTop: "5%", width: "80%", marginLeft: "8%" }} />
         </ScrollView>
 
     );
 }
 
 const styles = StyleSheet.create({
-    body:{
+    body: {
         marginTop: '-45%',
-        backgroundColor :"white", 
-        borderRadius : 20,
-        width : 350, 
-        marginLeft : "5%",
+        backgroundColor: "white",
+        borderRadius: 20,
+        width: '90%',
+        marginLeft: "5%",
+        marginRight:"5%",
         shadowColor: "#000",
         shadowOffset: {
-          width: 0,
-          height: 2,
+            width: 0,
+            height: 2,
         },
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
-        
+
         elevation: 5,
-      },
-      bodyContent: {
+    },
+    bodyContent: {
         //flex: 1,
         alignItems: 'center',
-        padding:10,
-      
-      },
-      
+        padding: 10,
+
+    },
+
     container: {
         flex: 1,
-        marginTop : "10%"
+        marginTop: "10%"
     },
-    subtitle : {
-        fontSize : 20,
-        color : "darkorchid",
-        fontWeight: 'bold', 
-        marginTop : '-20%', 
-        textAlign : 'left'
+    subtitle: {
+        fontSize: 20,
+        color: "darkorchid",
+        fontWeight: 'bold',
+        textAlign: 'left'
+
+
+    },
+    subtitleComments: {
+        fontSize: 20,
+        color: "darkorchid",
+        fontWeight: 'bold',
+        textAlign: 'left',
+        marginTop : '-20%',
 
 
     },
@@ -191,12 +200,12 @@ const styles = StyleSheet.create({
         borderColor: "darkorchid",
         alignSelf: 'center',
         position: 'absolute',
-        marginTop : '2%'
+        marginTop: '2%'
     },
     name: {
         fontSize: 18,
         color: "#FFFFFF",
-        textAlign : 'center'
+        textAlign: 'center'
     },
     bodyContent: {
         flex: 1,
@@ -207,49 +216,49 @@ const styles = StyleSheet.create({
         color: "#696969",
         fontWeight: "600",
         marginTop: '20%',
-        fontWeight: 'bold', 
-        textAlign : 'center'
+        fontWeight: 'bold',
+        textAlign: 'center'
     },
     info: {
         fontSize: 18,
         color: "darkorchid",
         marginTop: '5%',
-        textAlign : 'center'
+        textAlign: 'center'
     },
     description: {
         fontSize: 16,
         color: "#696969",
         marginTop: '5%',
         textAlign: 'center',
-    }, 
-    text : {
-        fontSize:16,
+    },
+    text: {
+        fontSize: 16,
         color: "black",
-        textAlign : 'left'
-    }, commentsAvatar : {
+        textAlign: 'left'
+    }, commentsAvatar: {
         width: 40,
         height: 18,
         borderRadius: 62,
         borderWidth: 1,
         borderColor: "darkorchid",
         position: 'absolute',
-        marginTop : '17%',
-        marginLeft : "5%"
-        
-    }, 
-    NamecommentText : {
-        fontSize:16,
+        marginTop: '17%',
+        marginLeft: "5%"
+
+    },
+    NamecommentText: {
+        fontSize: 16,
         color: "black",
-        fontWeight: 'bold', 
-        marginLeft : '5%', 
-        marginTop : "2%"
-        
-    }, 
-    commentText : {
-        fontSize:16,
+        fontWeight: 'bold',
+        marginLeft: '5%',
+        marginTop: "2%"
+
+    },
+    commentText: {
+        fontSize: 16,
         color: "black",
-        marginLeft : '5%', 
-        
+        marginLeft: '5%',
+
     }
 
 });

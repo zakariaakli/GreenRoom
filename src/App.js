@@ -160,7 +160,6 @@ const App = () => {
  <RootStack.Screen
           name="appTabs"
           component={appTabs}
-
         />
 
         <RootStack.Screen name="Sign In">

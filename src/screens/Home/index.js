@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
       right: 0,
     },
     body: {
-      
+
 
     },
     sectionContainer: {
@@ -81,7 +81,7 @@ function Home (navigation) {
       }
     }
     getUserInfo();
-  })
+  }, [])
 
     return (
         <SafeAreaView>
