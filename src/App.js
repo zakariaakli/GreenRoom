@@ -10,16 +10,63 @@ import SignInScreen from './screens/SignIn';
 import SignUpScreen from './screens/SignUp';
 import PasswordForgetScreen from './screens/PasswordForget';
 import HomeScreen from './screens/Home';
-import ProfileScreen from './screens/Profile';
 import DetailsArtist from './screens/DetailsArtist';
 import AddArtistInfos from './screens/addArtist';
 import * as firebase from 'firebase';
 import apiKeys from '../config/keys';
 import media from './screens/addArtist/media'
 import { loggingOut } from '../API/firebaseMethods';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import ProfileScreen from './screens/Profil';
+import UpdateArtistScreen from './screens/updateArtist';
 
 // ZAK Drawer Navigation -- a new navigation technique from React Navigation -- as nested navigation within the previously implemented Stack Navigation.
 const Drawer = createDrawerNavigator();
+function HomeStack() {
+  return (
+    <RootStack.Navigator
+        navigationOptions= {{
+          headerLeft: ()=> null,
+          }}
+      screenOptions={{
+        headerStyle: { backgroundColor: '#FF5A60' },
+        headerTintColor: '#fff',
+        headerTitleStyle: { fontWeight: 'bold' },
+        headerShown: false
+      }}>
+      <RootStack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={({ route, navigation }) => ({
+            headerTitle: getFocusedRouteNameFromRoute(route),
+          })
+        }
+        />
+      <RootStack.Screen
+        name="Details"
+        component={DetailsArtist}
+      />
+    </RootStack.Navigator>
+  );
+}
+function SettingsStack() {
+  return (
+    <RootStack.Navigator
+
+      screenOptions={{
+        headerStyle: { backgroundColor: '#FF5A60' },
+        headerTintColor: '#fff',
+        headerTitleStyle: { fontWeight: 'bold' },
+        headerShown: false
+      }}>
+      <RootStack.Screen
+        name="Profil"
+        component={ProfileScreen}
+      />
+
+    </RootStack.Navigator>
+  );
+}
 
 const HomeDrawer = () => {
   return (
@@ -36,12 +83,35 @@ const HomeDrawer = () => {
 // ZAK The Tab Navigation is used to highlight the main features of an app at the bottom of the phone screen
 const Tab = createBottomTabNavigator();
 
-const HomeTabs = () => {
+const appTabs = () => {
   return (
-    <Tab.Navigator>
-      <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Details Artist" component={DetailsArtist} />
-    </Tab.Navigator>
+    <Tab.Navigator
+
+        tabBarOptions={{
+          activeTintColor: 'darkorchid',
+        }}>
+        <Tab.Screen
+          name="HomeStack"
+          component={HomeStack}
+          options={{
+            tabBarLabel: 'Home',
+            tabBarIcon: ({ color, size }) => (
+              <MaterialCommunityIcons name="home" color={color} size={size} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="SettingsStack"
+          component={SettingsStack}
+          options={{
+            tabBarLabel: 'Profil',
+            tabBarIcon: ({ color, size }) => (
+              <MaterialCommunityIcons name="account-circle" color={color} size={size} />
+            ),
+          }}
+        />
+
+      </Tab.Navigator>
   );
 };
 // ZAK Drawer Navigation -- a new navigation technique from React Navigation -- as nested navigation within the previously implemented Stack Navigation.
@@ -72,7 +142,12 @@ const App = () => {
 
   return (
     <NavigationContainer>
-      <RootStack.Navigator >
+      <RootStack.Navigator screenOptions={{
+        headerStyle: { backgroundColor: 'darkorchid' },
+        headerTintColor: 'black',
+        headerTitleStyle: { fontWeight: 'bold' },
+      }}
+      >
 
         <RootStack.Screen
           name="Landing"
@@ -80,37 +155,13 @@ const App = () => {
           options={{
             animationTypeForReplace: 'pop',
           }}
-        />
-        <RootStack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={({ route, navigation }) => ({
-            headerTitle: getFocusedRouteNameFromRoute(route),
-            // headerLeft: () => (
-            //   <Button
-            //     onPress={() =>
-            //       navigation.dispatch(DrawerActions.toggleDrawer())
-            //     }
-            //     title="Menu"
-            //   />
-            // ),
-            headerRight: () => (
-              <Button onPress={handleSignOut} title="Sign Out" />
-            ),
-            //headerShown : false,
-            gestureEnabled: false
-          })
 
-        }
         />
-        <RootStack.Screen
-          name="Details"
-          component={DetailsArtist}
-          options={ () => ({
-            headerShown : false,
-          })
-          }
+ <RootStack.Screen
+          name="appTabs"
+          component={appTabs}
         />
+
         <RootStack.Screen name="Sign In">
           {(props) => (
             <SignInScreen {...props} onSignIn={handleSignIn} />
@@ -130,10 +181,17 @@ const App = () => {
           name="Ajouter Info"
           component={AddArtistInfos}
         />
+
+        <RootStack.Screen
+          name="Modifer Info"
+          component={UpdateArtistScreen}
+        />
       <RootStack.Screen
           name="Ajouter media"
           component={media}
         />
+
+
       </RootStack.Navigator>
 
     </NavigationContainer>

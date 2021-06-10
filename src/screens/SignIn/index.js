@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, StyleSheet, Alert } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import {signIn} from '../../../API/firebaseMethods';
+import { signIn } from '../../../API/firebaseMethods';
 import apiKeys from '../../../config/keys';
 import * as firebase from 'firebase';
 
@@ -27,9 +27,19 @@ const SignInScreen = ({ onSignIn, navigation }) => {
     signIn(email, password);
 
     firebase.auth().onAuthStateChanged(user => {
-      if(user) {
-        navigation.navigate('Ajouter Info');
+      if (user ) {
+        firebase.firestore().collection('userDetails').where('userId', '==', firebase.auth()
+        .currentUser.uid).get().then(doc => {
+          if (doc.size > 0) {
+            navigation.navigate('appTabs');
+          }
+          else {
+            navigation.navigate('Ajouter Info');
+          }
+        }).catch((error) =>{ console.log(error) })
+
       }
+
     });
   };
 
@@ -72,7 +82,7 @@ const styles = StyleSheet.create({
     margin: "2%",
   },
   buttonText: {
-    fontSize:20,
+    fontSize: 20,
     color: 'white',
     fontWeight: 'bold',
     textAlign: 'center',
@@ -86,9 +96,9 @@ const styles = StyleSheet.create({
   },
   formInput: {
     width: 300,
-    fontSize:18,
+    fontSize: 18,
     borderWidth: 1,
-    borderColor:'#a4eddf',
+    borderColor: '#a4eddf',
     padding: 10,
     margin: 5,
   },

@@ -59,6 +59,7 @@ const ARList = ({navigation}) => {
                         <View >
                             <RootComponent key={i} arImages={imagesToShow}  arName={artisticName} arResume={description} arRating={5} />
                         </View>
+
                      </TouchableWithoutFeedback>
                 );
             })

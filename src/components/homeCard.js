@@ -23,7 +23,15 @@ function RootComponent(props) {
 
     return (
         <View style={{ flex: 1, alignItems: "center", justifyContent: "center", paddingTop: 20 }}>
-            <View style={{ backgroundColor: "#eee", borderRadius: 10, overflow: "hidden" }}>
+            <View style={{ backgroundColor: "#eee", borderRadius: 10, overflow: "hidden" , shadowColor: "#000",
+          shadowOffset: {
+            width: 0,
+            height: 2,
+          },
+          shadowOpacity: 0.25,
+          shadowRadius: 3.84,
+          
+          elevation: 5,}}>
                 <View style={{ width: 350, backgroundColor: "white" }}>
                     <ScrollView pagingEnabled horizontal showsHorizontalScrollIndicator={false} onScroll={change}>
                         {
@@ -59,7 +67,7 @@ function RootComponent(props) {
                 <Rating
                     style={{ backgroundColor: 'white', alignItems: 'flex-start' }}
                     type='custom'
-                    ratingColor='green'
+                    ratingColor='purple'
                     ratingCount={5}
                     startingValue={props.arRating}// On peut metre X/Y egalement
                     ratingBackgroundColor='#c8c7c8'
