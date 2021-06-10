@@ -31,7 +31,7 @@ const SignInScreen = ({ onSignIn, navigation }) => {
         firebase.firestore().collection('userDetails').where('userId', '==', firebase.auth()
         .currentUser.uid).get().then(doc => {
           if (doc.size > 0) {
-            navigation.navigate('appTabs');
+            navigation.navigate('GreenRoom');
           }
           else {
             navigation.navigate('Ajouter Info');

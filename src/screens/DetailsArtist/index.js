@@ -14,6 +14,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { loggingOut } from '../../../API/firebaseMethods';
 import * as firebase from 'firebase';
 
+
 if (!firebase.apps.length) {
   console.log('Connected with Firebase')
   firebase.initializeApp(apiKeys.firebaseConfig);
@@ -33,17 +34,9 @@ function detailsArtist({ route, navigation }) {
     }
   }
 
-  const handlePress = () => {
-    loggingOut();
-    navigation.reset({
-      index: 4,
-      routes: [{ name: 'Sign Up' }],
-    });
-    navigation.navigate('Sign Up');
-  }
 
-  const modifyProfil = () => {
-    navigation.navigate('Modifer Info');
+  const sendMessage = () => {
+    navigation.navigate('Envoyer message', { artisticName: artisticName});
   }
 
   return (
@@ -128,20 +121,13 @@ function detailsArtist({ route, navigation }) {
       </View>
       <View>
         <Button
-          title="modifier profil"
-          color="orange"
-          onPress={modifyProfil}
+          title="Envoyer message"
+          color="green"
+          onPress={sendMessage}
         />
       </View>
       <View style={{ borderBottomColor: "#DCE3EC", borderBottomWidth: 1, marginTop: "5%", width: "80%", marginLeft: "8%" }} />
-      <View>
-        <Button
-          title="Se deconnecter"
-          color="darkorchid"
-          onPress={handlePress}
-        />
-      </View>
-      <View style={{ borderBottomColor: "#DCE3EC", borderBottomWidth: 1, marginTop: "5%", width: "80%", marginLeft: "8%" }} />
+
     </ScrollView>
 
   );

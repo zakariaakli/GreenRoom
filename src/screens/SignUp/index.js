@@ -130,7 +130,7 @@ const SignUpScreen = ({ onSignUp, navigation }) => {
         firstName,
       ).then(function () {
         // if (!checked)
-        //   navigation.navigate('appTabs');
+        //   navigation.navigate('GreenRoom');
         // else
           navigation.navigate('Ajouter Info');
         emptyState();

@@ -19,6 +19,7 @@ import { loggingOut } from '../API/firebaseMethods';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import ProfileScreen from './screens/Profil';
 import UpdateArtistScreen from './screens/updateArtist';
+import chatScreen from './screens/chat';
 
 // ZAK Drawer Navigation -- a new navigation technique from React Navigation -- as nested navigation within the previously implemented Stack Navigation.
 const Drawer = createDrawerNavigator();
@@ -45,6 +46,10 @@ function HomeStack() {
       <RootStack.Screen
         name="Details"
         component={DetailsArtist}
+        options={({ route, navigation }) => ({
+          headerTitle: getFocusedRouteNameFromRoute(route),
+        })
+      }
       />
     </RootStack.Navigator>
   );
@@ -158,7 +163,7 @@ const App = () => {
 
         />
  <RootStack.Screen
-          name="appTabs"
+          name="GreenRoom"
           component={appTabs}
         />
 
@@ -190,6 +195,11 @@ const App = () => {
           name="Ajouter media"
           component={media}
         />
+        <RootStack.Screen
+          name="Envoyer message"
+          component={chatScreen}
+        />
+
 
 
       </RootStack.Navigator>

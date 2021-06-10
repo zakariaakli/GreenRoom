@@ -124,9 +124,10 @@ function profil({ navigation }) {
                 </View>
                 <View style={{ borderBottomColor: "#DCE3EC", borderBottomWidth: 1, marginTop: "10%", width: "80%", marginLeft: "8%" }} />
             </View>
+
             <View>
                 <Button
-                    title="modifier profil"
+                    title="Modifier profil"
                     color="orange"
                     onPress={modifyProfil}
                 />

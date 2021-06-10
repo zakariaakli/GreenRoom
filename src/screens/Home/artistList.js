@@ -38,6 +38,7 @@ const ARList = ({navigation}) => {
     useEffect(() => {
         const getImages = async () => {
             const response = await firebase.firestore().collection('userDetails').get();
+
             setArtistList(await response.docs.map(doc => doc.data()));
         }
         getImages();
@@ -49,19 +50,21 @@ const ARList = ({navigation}) => {
         return (
             // implemented without image with header
 
-            artistList.map(({artisticName, description, imagesToShow} , i) => {
+            artistList.map(({artisticName, description, imagesToShow, isArtist} , i) => {
+                if(isArtist){
+                    return (
 
-                return (
+                        <TouchableWithoutFeedback   key={i} onPress={() => navigation.navigate('Details', {
+                                artisticName: artisticName, description: description, images: imagesToShow
+                        })}>
+                            <View >
+                                <RootComponent key={i} arImages={imagesToShow}  arName={artisticName} arResume={description} arRating={5} />
+                            </View>
 
-                    <TouchableWithoutFeedback   key={i} onPress={() => navigation.navigate('Details', {
-                            artisticName: artisticName, description: description, images: imagesToShow
-                    })}>
-                        <View >
-                            <RootComponent key={i} arImages={imagesToShow}  arName={artisticName} arResume={description} arRating={5} />
-                        </View>
+                         </TouchableWithoutFeedback>
+                    );
+                }
 
-                     </TouchableWithoutFeedback>
-                );
             })
         )
 }

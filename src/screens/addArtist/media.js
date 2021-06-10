@@ -128,7 +128,7 @@ function media({navigation}) {
   }
 
   const finish = () => {
-    navigation.navigate('appTabs');
+    navigation.navigate('GreenRoom');
 
   }
 
@@ -177,7 +177,7 @@ function media({navigation}) {
         <View>
         <Button title="Terminé" color="darkorchid" onPress={finish} />
         </View>
-        
+
 
 
 
@@ -212,11 +212,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   pagingText: {fontSize: 10, color:'#888', margin:3},
-    paginActiveText: {fontSize: 10, color:'#fff', margin:3}, 
+    paginActiveText: {fontSize: 10, color:'#fff', margin:3},
     text : {
       fontSize : 20,
         color : "darkorchid",
-        fontWeight: 'bold', 
+        fontWeight: 'bold',
         textAlign : 'left'
     }
 })
