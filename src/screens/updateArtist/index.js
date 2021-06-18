@@ -15,9 +15,11 @@ const updateAritsInfos = ({navigation}) => {
 
   const [artisticName, setArtisticName] = useState("");
   const [description, setDescription] = useState("");
+  const [artisticAge, setArtisticAge] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [dbArtisticName, setDbArtisticName] = useState("");
   const [dbDescription, setDbDescription] = useState("");
+  const [dbArtisticAge, setDbArtisticAge] = useState("");
   const [docId, setDocId] = useState("");
 
   useEffect(() => {
@@ -29,9 +31,11 @@ const updateAritsInfos = ({navigation}) => {
           setDocId(doc.docs[0].id);
           console.log(doc.docs[0].data().artisticName)
           setArtisticName(doc.docs[0].data().artisticName);
+          setArtisticAge(doc.docs[0].data().artisticAge);
           setDescription(doc.docs[0].data().description);
           setDbArtisticName(doc.docs[0].data().artisticName);
           setDbDescription(doc.docs[0].data().description);
+          setDbArtisticAge(doc.docs[0].data().artisticAge);
         }
         else{
           console.log('no user');
@@ -48,7 +52,7 @@ const storeUser = () => {
     if (artisticName === '') {
       alert('choisi ton nom artistique!')
     }
-    else if(artisticName == dbArtisticName && description == dbDescription){
+    else if(artisticName == dbArtisticName && description == dbDescription && artisticAge == dbArtisticAge){
       console.log('rien')
       navigation.navigate('Ajouter media');
     }
@@ -58,9 +62,11 @@ const storeUser = () => {
       firebase.firestore().collection('userDetails').doc(docId).update({
         artisticName: artisticName,
         description: description,
+        artisticAge : artisticAge
       }).then((res) => {
         setArtisticName("");
         setDescription("");
+        setArtisticAge("");
         setIsLoading(false);
 
         navigation.navigate('Ajouter media')
@@ -96,6 +102,15 @@ const storeUser = () => {
           placeholder={'Description'}
           value={description}
           onChangeText={(val) => setDescription(val)}
+        />
+      </View>
+      <View style={styles.inputGroup}>
+        <TextInput
+          multiline={true}
+          numberOfLines={4}
+          placeholder={'Age'}
+          value={artisticAge}
+          onChangeText={(val) => setArtisticAge(val)}
         />
       </View>
       <View style={styles.button}>

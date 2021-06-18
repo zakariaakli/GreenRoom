@@ -13,9 +13,11 @@ const AddArtistInfos = ({navigation}) => {
 
   const [artisticName, setArtisticName] = useState("");
   const [description, setDescription] = useState("");
+  const [artisticAge, setArtisticAge] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [dbArtisticName, setDbArtisticName] = useState("");
   const [dbDescription, setDbDescription] = useState("");
+  const [dbArtisticAge, setDbArtisticAge] = useState("");
 
   useEffect(() => {
     const getUserInfos = async()=>{
@@ -26,8 +28,10 @@ const AddArtistInfos = ({navigation}) => {
           console.log(doc.docs[0].data().artisticName)
           setArtisticName(doc.docs[0].data().artisticName);
           setDescription(doc.docs[0].data().description);
+          setArtisticAge(doc.docs[0].data().artisticAge);
           setDbArtisticName(doc.docs[0].data().artisticName);
           setDbDescription(doc.docs[0].data().description);
+          setDbArtisticAge(doc.docs[0].data().artisticAge);
         }
         else{
           console.log('no user');
@@ -44,7 +48,7 @@ const storeUser = () => {
     if (artisticName === '') {
       alert('choisi ton nom artistique!')
     }
-    else if(artisticName == dbArtisticName && description == dbDescription){
+    else if(artisticName == dbArtisticName && description == dbDescription && artisticAge == dbArtisticAge){
       console.log('rien')
       navigation.navigate('Ajouter media');
     }
@@ -54,6 +58,7 @@ const storeUser = () => {
       firebase.firestore().collection('userDetails').add({
         artisticName: artisticName,
         description: description,
+        artisticAge : artisticAge,
         userId: firebase.auth().currentUser ? firebase.auth().currentUser.uid : null,
         images:[],
         imagesToShow:[],
@@ -62,6 +67,7 @@ const storeUser = () => {
       }).then((res) => {
         setArtisticName("");
         setDescription("");
+        setArtisticAge("");
         setIsLoading(false);
 
         navigation.navigate('Ajouter media')
@@ -96,6 +102,15 @@ const storeUser = () => {
           numberOfLines={4}
           placeholder={'Description'}
           value={description}
+          onChangeText={(val) => setDescription(val)}
+        />
+      </View>
+      <View style={styles.inputGroup}>
+        <TextInput
+          multiline={true}
+          numberOfLines={4}
+          placeholder={'Age'}
+          value={artisticAge}
           onChangeText={(val) => setDescription(val)}
         />
       </View>
