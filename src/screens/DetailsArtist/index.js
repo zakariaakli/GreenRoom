@@ -13,6 +13,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { loggingOut } from '../../../API/firebaseMethods';
 import * as firebase from 'firebase';
+import { Video, AVPlaybackStatus } from 'expo-av';
 
 
 if (!firebase.apps.length) {
@@ -25,7 +26,7 @@ function detailsArtist({ route, navigation }) {
   const [address, setAddress] = useState('');
   const [active, setActive] = useState(0);
 
-  const { artisticName, description, images, age, city, experience, instruments, mobility } = route.params;
+  const { artisticName, description, images, age, city, experience, instruments, mobility, video, videoToShow } = route.params;
 
   const change = ({ nativeEvent }) => {
     const slide = Math.ceil(nativeEvent.contentOffset.x / nativeEvent.layoutMeasurement.width);
@@ -53,14 +54,38 @@ function detailsArtist({ route, navigation }) {
         elevation: 5, flex: 1, alignItems: "center", justifyContent: "center", marginBottom: '-20%',
       }}>
         <View style={{ width: 350, backgroundColor: "white" }}>
-          <ScrollView pagingEnabled horizontal showsHorizontalScrollIndicator={false} onScroll={change}>
-            {
-              images.map((url, i) => (
-                <Image onStartShouldSetResponder={() => true} key={i} style={{ width: 350, height: 300, resizeMode: 'cover' }} source={{ uri: url }} />
+        <ScrollView pagingEnabled horizontal showsHorizontalScrollIndicator={false} onScroll={change}>
+                                    {
+                                        video != "" ?
 
-              ))
-            }
-          </ScrollView>
+                                        images.map((url, j) => (
+
+                                        j==0 ?
+                                        <Video
+                                        key={j}
+                                        rate={1.0}
+                                        volume={1.0}
+                                        isMuted={false}
+                                        style={{ width: 350, height: 350 }}
+                                        source={{
+                                          uri: videoToShow,
+                                        }}
+                                        useNativeControls
+                                        resizeMode="cover"
+                                        isLooping
+                                      />
+                                      :
+
+                                         <Image onStartShouldSetResponder={() => true} key={j} style={{ width: 350, height: 350, resizeMode: 'cover' }} source={{ uri: url }} />
+
+                                       ))
+
+
+                                            : images.map((url, j) => (
+                                                <Image onStartShouldSetResponder={() => true} key={j} style={{ width: 350, height: 350, resizeMode: 'cover' }} source={{ uri: url }} />
+                                            ))
+                                    }
+                                </ScrollView>
           <View style={{ flexDirection: 'row', position: 'absolute', alignSelf: 'center', bottom: 0 }}>
             {
               images.map((k, i) => (

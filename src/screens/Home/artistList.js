@@ -42,7 +42,20 @@ const ARList = ({ navigation }) => {
         const getImages = async () => {
             const response = await firebase.firestore().collection('userDetails').get();
 
-            setArtistList(await response.docs.map(doc => doc.data()));
+            let list = await response.docs.map(doc => doc.data());
+
+            for(var i =0; i < list.length; i++){
+                if(list[i].video != ""){
+                    list[i].imagesToShow.splice(0,0,'uri');
+                }
+
+            }
+
+
+            setArtistList(list);
+
+
+
         }
         getImages();
         return () => {
@@ -63,7 +76,7 @@ const ARList = ({ navigation }) => {
         // implemented without image with header
 
         artistList.map(({ artisticName, description, imagesToShow, isArtist, age, city, experience,
-            instruments, mobility, isForTest }, i) => {
+            instruments, mobility, isForTest, video, videoToShow }, i) => {
             if (isArtist && !isForTest) {
                 return (
                     <View style={{ flex: 1, alignItems: "center", justifyContent: "center", paddingTop: 20 }}>
@@ -79,59 +92,58 @@ const ARList = ({ navigation }) => {
                             elevation: 5,
                         }}>
                             <View style={{ width: 350, backgroundColor: "white" }}>
-{/* <ScrollView pagingEnabled horizontal showsHorizontalScrollIndicator={false} >
+                                <ScrollView pagingEnabled horizontal showsHorizontalScrollIndicator={false} onScroll={change}>
+                                    {
+                                        video != "" ?
 
+                                        imagesToShow.map((url, j) => (
 
-                                <Video
-                                    style={{ width: 350, height: 300, resizeMode: 'cover' }}
-                                    source={{
-                                        uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-                                    }}
-                                    useNativeControls
-                                    resizeMode="contain"
-                                    isLooping
-                                />
-
-                            </ScrollView> */}
-
-<ScrollView pagingEnabled horizontal showsHorizontalScrollIndicator={false} onScroll={change}>
-                                {
-                                    imagesToShow.map((url, i) => (
-                                        // <Image onStartShouldSetResponder={() => true} key={i} style={{ width: 350, height: 300, resizeMode: 'cover' }} source={{ uri: url }} />
-
+                                        j==0 ?
                                         <Video
-                                            style={{ width: 350, height: 300, resizeMode: 'cover' }}
-                                            source={{
-                                                uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-                                            }}
-                                            useNativeControls
-                                            resizeMode="contain"
-                                            isLooping
-                                        />
-                                    )
-                                    )
-                                }
-                            </ScrollView>
-                            <View style={{ flexDirection: 'row', position: 'absolute', alignSelf: 'center', bottom: 0 }}>
-                                {
-                                    imagesToShow.map((k, i) => (
-                                        <Text key={i} style={i == active ? styles.paginActiveText : styles.pagingText}>⬤</Text>
+                                        key={j}
+                                        rate={1.0}
+                                        volume={1.0}
+                                        isMuted={false}
+                                        style={{ width: 350, height: 350 }}
+                                        source={{
+                                          uri: videoToShow,
+                                        }}
+                                        useNativeControls
+                                        resizeMode="cover"
+                                        isLooping
+                                      />
+                                      :
 
-                                    ))
-                                }
+                                         <Image onStartShouldSetResponder={() => true} key={j} style={{ width: 350, height: 350, resizeMode: 'cover' }} source={{ uri: url }} />
 
-                            </View>
+                                       ))
 
-                            <TouchableWithoutFeedback key={i} onPress={() => navigation.navigate('Details', {
-                                artisticName: artisticName, description: description, images: imagesToShow,
-                                age: age, city: city, experience: experience, instruments: instruments,
-                                mobility: mobility
-                            })}>
-                                <View >
-                                    <RootComponent key={i} arImages={imagesToShow} arName={artisticName} arResume={description} arRating={5} />
+
+                                            : imagesToShow.map((url, j) => (
+                                                <Image onStartShouldSetResponder={() => true} key={j} style={{ width: 350, height: 350, resizeMode: 'cover' }} source={{ uri: url }} />
+                                            ))
+                                    }
+                                </ScrollView>
+                                <View style={{ flexDirection: 'row', position: 'absolute', alignSelf: 'center', bottom: 0 }}>
+                                    {
+                                        imagesToShow.map((k, j) => (
+                                            <Text key={j} style={j == active ? styles.paginActiveText : styles.pagingText}>⬤</Text>
+
+                                        ))
+                                    }
+
                                 </View>
 
-                            </TouchableWithoutFeedback>
+                                <TouchableWithoutFeedback key={i} onPress={() => navigation.navigate('Details', {
+                                    artisticName: artisticName, description: description, images: imagesToShow,
+                                    age: age, city: city, experience: experience, instruments: instruments,
+                                    mobility: mobility, video: video, videoToShow: videoToShow
+                                })}>
+                                    <View >
+                                        <RootComponent key={i} arImages={imagesToShow} arName={artisticName} arResume={description} arRating={5} />
+                                    </View>
+
+                                </TouchableWithoutFeedback>
                             </View>
                         </View>
                     </View>
