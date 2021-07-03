@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect, } from 'react';
 import {
     SafeAreaView,
     StyleSheet,
     ScrollView,
     View,
-    Text,
+    Text, TextInput, Button
 } from 'react-native';
 import { RFPercentage } from "react-native-responsive-fontsize";
 
@@ -53,34 +53,41 @@ const styles = StyleSheet.create({
         textAlign: 'justify',
         left: 15
 
-    }
+    },
+    container: {
+        flex: 1,
+        padding: 35
+    },
 });
 
-function chat(route, navigation) {
+function chat({route, navigation}) {
+
+const sendMessage = () => {
+    navigation.navigate('GreenRoom');
+}
 
     //const { artisticName } = route.params;
 
     return (
-        <SafeAreaView>
 
-            <ScrollView
-                contentInsetAdjustmentBehavior="automatic"
-                style={styles.scrollView}>
+        <ScrollView
+            style={styles.container}>
 
-                {global.HermesInternal == null ? null : (
-                    <View style={styles.engine}>
-                        <Text style={styles.footer}>Engine: Hermes</Text>
-                    </View>
-                )}
-                <View style={styles.body}>
+            <View style={styles.inputGroup}>
+                <TextInput
+                    placeholder={'Merci de saisir votre message ...'}
 
+                />
+            </View>
+            <View style={styles.button}>
+                <Button
+                    title='Envoyer'
+                    onPress={() => sendMessage()}
+                    color="#19AC52"
+                />
+            </View>
 
-                    <Text style={styles.TextLabel}> Contact ! </Text>
-
-                </View>
-
-            </ScrollView>
-        </SafeAreaView>
+        </ScrollView>
     );
 }
 

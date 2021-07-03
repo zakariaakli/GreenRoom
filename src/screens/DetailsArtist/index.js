@@ -25,7 +25,7 @@ function detailsArtist({ route, navigation }) {
   const [address, setAddress] = useState('');
   const [active, setActive] = useState(0);
 
-  const { artisticName, description, images } = route.params;
+  const { artisticName, description, images, age, city, experience, instruments, mobility } = route.params;
 
   const change = ({ nativeEvent }) => {
     const slide = Math.ceil(nativeEvent.contentOffset.x / nativeEvent.layoutMeasurement.width);
@@ -79,28 +79,24 @@ function detailsArtist({ route, navigation }) {
         <Text style={styles.info}>{description}</Text>
       </View>
       <View style={{ borderBottomColor: "#DCE3EC", borderBottomWidth: 1, marginTop: "25%", width: "90%", marginLeft: "5%" }} />
+
       <View style={styles.container}>
         <View style={styles.body}>
           <View style={styles.bodyContent}>
             {/* <View style={{ borderBottomColor: "#DCE3EC", borderBottomWidth: 1, marginTop : "10%", width : "90%", marginLeft : "5%"}} /> */}
             <Text style={styles.subtitle}>À propos de </Text>
-            <Text style={styles.text}>  Disponibilité :  Immédiate</Text>
-            <Text style={styles.text}>  Ville :  Paris</Text>
-            <Text style={styles.text}>  Age :  19 ans</Text>
-            <Text style={styles.text}>  Expérience :  confirmé</Text>
+            <Text style={styles.text}>  Ville : Lille</Text>
+            <Text style={styles.text}>  Age :  {age}</Text>
+            <Text style={styles.text}>  Expérience :  {experience}</Text>
 
           </View>
           {/* <View style={{ borderBottomColor: "#DCE3EC", borderBottomWidth: 1, marginTop: "-10%", width: "90%", marginLeft: "5%" }} /> */}
           <View style={styles.bodyContent}>
             <Text style={styles.subtitle}>Instruments utilisés</Text>
-            <Text style={styles.text}>Guitar, Saxo, Piano </Text>
+            <Text style={styles.text}>{instruments} </Text>
           </View>
           {/* <View style={{ borderBottomColor: "#DCE3EC", borderBottomWidth: 1, marginTop: "-8%", width: "90%", marginLeft: "5%" }} /> */}
-          <View style={styles.bodyContent}>
-            <Text style={styles.subtitle}>Mobilité </Text>
-            <Text style={styles.text}> Nante, La Rochelle, Brest  </Text>
 
-          </View>
 
 
         </View>

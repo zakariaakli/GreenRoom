@@ -31,6 +31,7 @@ function profil({ navigation }) {
     const [experience, setExperience] = useState('');
     const [instruments, setInstruments] = useState('');
     const [mobility, setMobility] = useState('');
+    const [isArtist, setIsArtist] = useState(false);
 
     useEffect(() => {
         const getProfil = async () => {
@@ -49,6 +50,7 @@ function profil({ navigation }) {
             setExperience(data.docs[0].data().experience);
             setInstruments(data.docs[0].data().instruments);
             setMobility(data.docs[0].data().mobility);
+            setIsArtist(data.docs[0].data().isArtist);
         }
         getProfil();
 
@@ -98,13 +100,17 @@ function profil({ navigation }) {
                 <Text style={styles.name}>{name} </Text>
                 <Text style={styles.info}>{description}</Text>
             </View>
-            <View style={{ borderBottomColor: "#DCE3EC", borderBottomWidth: 1, marginTop: "25%", width: "90%", marginLeft: "5%" }} />
-            <View style={styles.container}>
+
+            { isArtist ? (  <View style={{ borderBottomColor: "#DCE3EC", borderBottomWidth: 1, marginTop: "25%", width: "90%", marginLeft: "5%" }} /> ) : null}
+
+
+            {isArtist ? (
+                <View style={styles.container}>
                 <View style={styles.body}>
                     <View style={styles.bodyContent}>
                         {/* <View style={{ borderBottomColor: "#DCE3EC", borderBottomWidth: 1, marginTop : "10%", width : "90%", marginLeft : "5%"}} /> */}
                         <Text style={styles.subtitle}>À propos de </Text>
-                        <Text style={styles.text}>  Ville :  {city}</Text>
+                        <Text style={styles.text}>  Ville : Lille</Text>
                         <Text style={styles.text}>  Age :  {age}</Text>
                         <Text style={styles.text}>  Expérience :  {experience}</Text>
 
@@ -114,18 +120,17 @@ function profil({ navigation }) {
                         <Text style={styles.subtitle}>Instruments utilisés</Text>
                         <Text style={styles.text}>{instruments} </Text>
                     </View>
-                    {/* <View style={{ borderBottomColor: "#DCE3EC", borderBottomWidth: 1, marginTop: "-8%", width: "90%", marginLeft: "5%" }} /> */}
-                    <View style={styles.bodyContent}>
-                        <Text style={styles.subtitle}>Mobilité </Text>
-                        <Text style={styles.text}> {mobility} </Text>
-
-                    </View>
-
 
                 </View>
+                </View>
+            ) : null}
+            {
+              isArtist ? (<View style={{ borderBottomColor: "#DCE3EC", borderBottomWidth: 1, marginTop: "50%", width: "80%", marginLeft: "8%" }} /> )
+    : null
+            }
 
-            </View>
-            <View style={{ borderBottomColor: "#DCE3EC", borderBottomWidth: 1, marginTop: "50%", width: "80%", marginLeft: "8%" }} />
+{isArtist ? (
+
             <View style={styles.container}>
                 <View style={styles.body}>
                     <View style={styles.bodyContent}>
@@ -138,14 +143,17 @@ function profil({ navigation }) {
                 </View>
                 <View style={{ borderBottomColor: "#DCE3EC", borderBottomWidth: 1, marginTop: "10%", width: "80%", marginLeft: "8%" }} />
             </View>
+) : null}
 
-            <View>
+
+{ isArtist ? ( <View>
                 <Button
                     title="Modifier profil"
                     color="orange"
                     onPress={modifyProfil}
                 />
-            </View>
+            </View> ) : null }
+
             <View style={{ borderBottomColor: "#DCE3EC", borderBottomWidth: 1, marginTop: "5%", width: "80%", marginLeft: "8%" }} />
             <View>
                 <Button
@@ -167,7 +175,7 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         width: '90%',
         marginLeft: "5%",
-        marginRight:"5%",
+        marginRight: "5%",
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
@@ -202,7 +210,7 @@ const styles = StyleSheet.create({
         color: "darkorchid",
         fontWeight: 'bold',
         textAlign: 'left',
-        marginTop : '-20%',
+        marginTop: '-20%',
 
 
     },
