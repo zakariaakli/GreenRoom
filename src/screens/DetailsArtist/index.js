@@ -13,6 +13,8 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { loggingOut } from '../../../API/firebaseMethods';
 import * as firebase from 'firebase';
+import { Video, AVPlaybackStatus } from 'expo-av';
+
 
 if (!firebase.apps.length) {
   console.log('Connected with Firebase')
@@ -24,7 +26,7 @@ function detailsArtist({ route, navigation }) {
   const [address, setAddress] = useState('');
   const [active, setActive] = useState(0);
 
-  const { artisticName, description, images } = route.params;
+  const { artisticName, description, images, age, city, experience, instruments, mobility, video, videoToShow } = route.params;
 
   const change = ({ nativeEvent }) => {
     const slide = Math.ceil(nativeEvent.contentOffset.x / nativeEvent.layoutMeasurement.width);
@@ -33,17 +35,9 @@ function detailsArtist({ route, navigation }) {
     }
   }
 
-  const handlePress = () => {
-    loggingOut();
-    navigation.reset({
-      index: 4,
-      routes: [{ name: 'Sign Up' }],
-    });
-    navigation.navigate('Sign Up');
-  }
 
-  const modifyProfil = () => {
-    navigation.navigate('Modifer Info');
+  const sendMessage = () => {
+    navigation.navigate('Envoyer message', { artisticName: artisticName});
   }
 
   return (
@@ -60,14 +54,38 @@ function detailsArtist({ route, navigation }) {
         elevation: 5, flex: 1, alignItems: "center", justifyContent: "center", marginBottom: '-20%',
       }}>
         <View style={{ width: 350, backgroundColor: "white" }}>
-          <ScrollView pagingEnabled horizontal showsHorizontalScrollIndicator={false} onScroll={change}>
-            {
-              images.map((url, i) => (
-                <Image onStartShouldSetResponder={() => true} key={i} style={{ width: 350, height: 300, resizeMode: 'cover' }} source={{ uri: url }} />
+        <ScrollView pagingEnabled horizontal showsHorizontalScrollIndicator={false} onScroll={change}>
+                                    {
+                                        video != "" ?
 
-              ))
-            }
-          </ScrollView>
+                                        images.map((url, j) => (
+
+                                        j==0 ?
+                                        <Video
+                                        key={j}
+                                        rate={1.0}
+                                        volume={1.0}
+                                        isMuted={false}
+                                        style={{ width: 350, height: 350 }}
+                                        source={{
+                                          uri: videoToShow,
+                                        }}
+                                        useNativeControls
+                                        resizeMode="cover"
+                                        isLooping
+                                      />
+                                      :
+
+                                         <Image onStartShouldSetResponder={() => true} key={j} style={{ width: 350, height: 350, resizeMode: 'cover' }} source={{ uri: url }} />
+
+                                       ))
+
+
+                                            : images.map((url, j) => (
+                                                <Image onStartShouldSetResponder={() => true} key={j} style={{ width: 350, height: 350, resizeMode: 'cover' }} source={{ uri: url }} />
+                                            ))
+                                    }
+                                </ScrollView>
           <View style={{ flexDirection: 'row', position: 'absolute', alignSelf: 'center', bottom: 0 }}>
             {
               images.map((k, i) => (
@@ -86,28 +104,24 @@ function detailsArtist({ route, navigation }) {
         <Text style={styles.info}>{description}</Text>
       </View>
       <View style={{ borderBottomColor: "#DCE3EC", borderBottomWidth: 1, marginTop: "25%", width: "90%", marginLeft: "5%" }} />
+
       <View style={styles.container}>
         <View style={styles.body}>
           <View style={styles.bodyContent}>
             {/* <View style={{ borderBottomColor: "#DCE3EC", borderBottomWidth: 1, marginTop : "10%", width : "90%", marginLeft : "5%"}} /> */}
             <Text style={styles.subtitle}>À propos de </Text>
-            <Text style={styles.text}>  Disponibilité :  Immédiate</Text>
-            <Text style={styles.text}>  Ville :  Paris</Text>
-            <Text style={styles.text}>  Age :  19 ans</Text>
-            <Text style={styles.text}>  Expérience :  confirmé</Text>
+            <Text style={styles.text}>  Ville : Lille</Text>
+            <Text style={styles.text}>  Age :  {age}</Text>
+            <Text style={styles.text}>  Expérience :  {experience}</Text>
 
           </View>
           {/* <View style={{ borderBottomColor: "#DCE3EC", borderBottomWidth: 1, marginTop: "-10%", width: "90%", marginLeft: "5%" }} /> */}
           <View style={styles.bodyContent}>
             <Text style={styles.subtitle}>Instruments utilisés</Text>
-            <Text style={styles.text}>Guitar, Saxo, Piano </Text>
+            <Text style={styles.text}>{instruments} </Text>
           </View>
           {/* <View style={{ borderBottomColor: "#DCE3EC", borderBottomWidth: 1, marginTop: "-8%", width: "90%", marginLeft: "5%" }} /> */}
-          <View style={styles.bodyContent}>
-            <Text style={styles.subtitle}>Mobilité </Text>
-            <Text style={styles.text}> Nante, La Rochelle, Brest  </Text>
 
-          </View>
 
 
         </View>
@@ -128,20 +142,13 @@ function detailsArtist({ route, navigation }) {
       </View>
       <View>
         <Button
-          title="modifier profil"
-          color="orange"
-          onPress={modifyProfil}
+          title="Envoyer message"
+          color="green"
+          onPress={sendMessage}
         />
       </View>
       <View style={{ borderBottomColor: "#DCE3EC", borderBottomWidth: 1, marginTop: "5%", width: "80%", marginLeft: "8%" }} />
-      <View>
-        <Button
-          title="Se deconnecter"
-          color="darkorchid"
-          onPress={handlePress}
-        />
-      </View>
-      <View style={{ borderBottomColor: "#DCE3EC", borderBottomWidth: 1, marginTop: "5%", width: "80%", marginLeft: "8%" }} />
+
     </ScrollView>
 
   );

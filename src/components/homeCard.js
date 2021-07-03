@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View, Image, ScrollView, Dimensions, StyleSheet } from "react-native";
+import { Text, View, Image, ScrollView, Dimensions, StyleSheet, TouchableWithoutFeedback } from "react-native";
 import { SliderBox } from 'react-native-image-slider-box';
 import { Rating } from 'react-native-ratings';
+import { Video, AVPlaybackStatus } from 'expo-av';
 
 // const { width } = Dimensions.get("window") - 30;
 // const height = width * 100 / 70;
@@ -14,76 +15,78 @@ function RootComponent(props) {
 
     const [active, setActive] = useState(0);
 
-    const change = ({nativeEvent}) =>{
+    const change = ({ nativeEvent }) => {
         const slide = Math.ceil(nativeEvent.contentOffset.x / nativeEvent.layoutMeasurement.width);
-        if(slide !== active){
+        if (slide !== active) {
             setActive(slide);
         }
     }
 
     return (
-        <View style={{ flex: 1, alignItems: "center", justifyContent: "center", paddingTop: 20 }}>
-            <View style={{ backgroundColor: "#eee", borderRadius: 10, overflow: "hidden" , shadowColor: "#000",
-          shadowOffset: {
-            width: 0,
-            height: 2,
-          },
-          shadowOpacity: 0.25,
-          shadowRadius: 3.84,
-          
-          elevation: 5,}}>
-                <View style={{ width: 350, backgroundColor: "white" }}>
+            <View>
+                {/* <View style={{ width: 350, backgroundColor: "white" }}>
                     <ScrollView pagingEnabled horizontal showsHorizontalScrollIndicator={false} onScroll={change}>
                         {
                             props.arImages.map((url, i) => (
-                                <Image onStartShouldSetResponder={() => true} key={i} style={{ width: 350, height: 300, resizeMode: 'cover' }} source={{ uri: url }} />
+                                // <Image onStartShouldSetResponder={() => true} key={i} style={{ width: 350, height: 300, resizeMode: 'cover' }} source={{ uri: url }} />
 
-                            ))
+                                <Video
+                                    style={{ width: 350, height: 300, resizeMode: 'cover' }}
+                                    source={{
+                                        uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+                                    }}
+                                    useNativeControls
+                                    resizeMode="contain"
+                                    isLooping
+                                />
+                            )
+                            )
                         }
                     </ScrollView>
-                    <View style={{ flexDirection: 'row', position: 'absolute', alignSelf: 'center', bottom:0 }}>
-                    {
+                    <View style={{ flexDirection: 'row', position: 'absolute', alignSelf: 'center', bottom: 0 }}>
+                        {
                             props.arImages.map((k, i) => (
-                                <Text key={i} style= {i==active ? styles.paginActiveText : styles.pagingText }>⬤</Text>
+                                <Text key={i} style={i == active ? styles.paginActiveText : styles.pagingText}>⬤</Text>
 
                             ))
                         }
 
                     </View>
-                </View>
+                </View> */}
 
 
-                <View style={{ width: 350, backgroundColor: "white" }}>
-                    <Text style={{ color: "black", paddingTop: 3, fontSize: 20, fontWeight: 'bold' }}>
-                        {props.arName}
-                    </Text>
-                </View>
-                <View style={{ padding: 3, width: 350, backgroundColor: "white" }}>
-                    <Text style={{ color: "#777" }}>
-                        {props.arResume}
-                    </Text>
-                </View>
+                    <View style={{ width: 350, backgroundColor: "white" }}>
+                        <Text style={{ color: "black", paddingTop: 3, fontSize: 20, fontWeight: 'bold' }}>
+                            {props.arName}
+                        </Text>
+                    </View>
+                    <View style={{ padding: 3, width: 350, backgroundColor: "white" }}>
+                        <Text style={{ color: "#777" }}>
+                            {props.arResume}
+                        </Text>
+                    </View>
 
-                <Rating
-                    style={{ backgroundColor: 'white', alignItems: 'flex-start' }}
-                    type='custom'
-                    ratingColor='purple'
-                    ratingCount={5}
-                    startingValue={props.arRating}// On peut metre X/Y egalement
-                    ratingBackgroundColor='#c8c7c8'
-                    imageSize={18}
-                />
+                    <Rating
+                        style={{ backgroundColor: 'white', alignItems: 'flex-start' }}
+                        type='custom'
+                        ratingColor='purple'
+                        ratingCount={5}
+                        startingValue={props.arRating}// On peut metre X/Y egalement
+                        ratingBackgroundColor='#c8c7c8'
+                        imageSize={18}
+                    />
+
+
             </View>
-        </View>
     );
 }
 
 const styles = StyleSheet.create({
 
-    pagingText: {fontSize: 10, color:'#888', margin:3},
-    paginActiveText: {fontSize: 10, color:'#fff', margin:3}
+    pagingText: { fontSize: 10, color: '#888', margin: 3 },
+    paginActiveText: { fontSize: 10, color: '#fff', margin: 3 }
 
 
-  })
+})
 
 export default RootComponent;

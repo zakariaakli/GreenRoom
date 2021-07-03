@@ -24,7 +24,7 @@ const LandingScreen = ({ navigation }) => {
     () => {
      firebase.auth().onAuthStateChanged((user) => {
        if (user) {
-         navigation.replace('appTabs');
+         navigation.replace('GreenRoom');
        } else {
          navigation.replace('Sign Up');
        }
