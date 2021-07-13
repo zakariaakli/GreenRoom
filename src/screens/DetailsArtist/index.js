@@ -8,6 +8,7 @@ import {
   Image, TextInput, Button
 
 } from 'react-native';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -103,28 +104,17 @@ function detailsArtist({ route, navigation }) {
         <Text style={styles.name}>{artisticName} </Text>
         <Text style={styles.info}>{description}</Text>
       </View>
-      <View style={{ borderBottomColor: "#DCE3EC", borderBottomWidth: 1, marginTop: "25%", width: "90%", marginLeft: "5%" }} />
+      {/* <View style={{ borderBottomColor: "#DCE3EC", borderBottomWidth: 1, marginTop: "25%", width: "90%", marginLeft: "5%" }} /> */}
 
-      <View style={styles.container}>
-        <View style={styles.body}>
-          <View style={styles.bodyContent}>
-            {/* <View style={{ borderBottomColor: "#DCE3EC", borderBottomWidth: 1, marginTop : "10%", width : "90%", marginLeft : "5%"}} /> */}
-            <Text style={styles.subtitle}>À propos de </Text>
-            <Text style={styles.text}>  Ville : Lille</Text>
-            <Text style={styles.text}>  Age :  {age}</Text>
-            <Text style={styles.text}>  Expérience :  {experience}</Text>
+      <View style={styles.profil}>
+            <Text ><MaterialCommunityIcons name="map-marker-radius" color='darkorchid' size={20} /> Lille</Text>
+            <Text ><MaterialCommunityIcons name="cake" color='darkorchid' size={20} /> {age}</Text>
+            <Text ><MaterialCommunityIcons name="arm-flex" color='darkorchid' size={20} /> {experience}</Text>
 
-          </View>
-          {/* <View style={{ borderBottomColor: "#DCE3EC", borderBottomWidth: 1, marginTop: "-10%", width: "90%", marginLeft: "5%" }} /> */}
-          <View style={styles.bodyContent}>
-            <Text style={styles.subtitle}>Instruments utilisés</Text>
-            <Text style={styles.text}>{instruments} </Text>
-          </View>
-          {/* <View style={{ borderBottomColor: "#DCE3EC", borderBottomWidth: 1, marginTop: "-8%", width: "90%", marginLeft: "5%" }} /> */}
-
-
-
-        </View>
+      </View>
+      <View style={styles.profil} >
+       
+      <Text style={styles.text}><MaterialCommunityIcons name="music-clef-treble" color='darkorchid' size={20} /> {instruments} </Text>
 
       </View>
       <View style={{ borderBottomColor: "#DCE3EC", borderBottomWidth: 1, marginTop: "50%", width: "80%", marginLeft: "8%" }} />
@@ -143,7 +133,7 @@ function detailsArtist({ route, navigation }) {
       <View>
         <Button
           title="Envoyer message"
-          color="green"
+          color="darkorchid"
           onPress={sendMessage}
         />
       </View>
@@ -155,6 +145,19 @@ function detailsArtist({ route, navigation }) {
 }
 
 const styles = StyleSheet.create({
+  profil :{
+    
+    alignSelf : 'center',
+    justifyContent: 'center', 
+    backgroundColor : '#fff', 
+    width: '90%', 
+    padding : 20, 
+    paddingBottom: 22, 
+    borderRadius: 10, 
+    shadowOpacity:80, 
+    elevation:15, 
+    marginTop:20
+  },
   body: {
     marginTop: '-45%',
     backgroundColor: "white",

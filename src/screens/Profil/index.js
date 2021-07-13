@@ -106,22 +106,17 @@ function profil({ navigation }) {
 
             {isArtist ? (
                 <View style={styles.container}>
-                <View style={styles.body}>
-                    <View style={styles.bodyContent}>
-                        {/* <View style={{ borderBottomColor: "#DCE3EC", borderBottomWidth: 1, marginTop : "10%", width : "90%", marginLeft : "5%"}} /> */}
-                        <Text style={styles.subtitle}>À propos de </Text>
-                        <Text style={styles.text}>  Ville : Lille</Text>
-                        <Text style={styles.text}>  Age :  {age}</Text>
-                        <Text style={styles.text}>  Expérience :  {experience}</Text>
+                <View style={styles.profil}>
+            <Text ><MaterialCommunityIcons name="map-marker-radius" color='darkorchid' size={20} /> Lille</Text>
+            <Text ><MaterialCommunityIcons name="cake" color='darkorchid' size={20} /> {age}</Text>
+            <Text ><MaterialCommunityIcons name="arm-flex" color='darkorchid' size={20} /> {experience}</Text>
 
-                    </View>
-                    {/* <View style={{ borderBottomColor: "#DCE3EC", borderBottomWidth: 1, marginTop: "-10%", width: "90%", marginLeft: "5%" }} /> */}
-                    <View style={styles.bodyContent}>
-                        <Text style={styles.subtitle}>Instruments utilisés</Text>
-                        <Text style={styles.text}>{instruments} </Text>
-                    </View>
+      </View>
+      <View style={styles.profil} >
+       
+      <Text style={styles.text}><MaterialCommunityIcons name="music-clef-treble" color='darkorchid' size={20} /> {instruments} </Text>
 
-                </View>
+      </View>
                 </View>
             ) : null}
             {

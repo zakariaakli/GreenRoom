@@ -116,7 +116,7 @@ const AddArtistInfos = ({ navigation }) => {
         />
       </View>
 
-      <DropDownPicker
+      <DropDownPickere
         placeholder="Je suis ..."
         open={openProfile}
         value={profileType}
