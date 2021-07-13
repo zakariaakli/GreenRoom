@@ -8,7 +8,7 @@ import {
     Image, TextInput, Button
 
 } from 'react-native';
-
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { loggingOut } from '../../../API/firebaseMethods';
